@@ -1,0 +1,80 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@import: local
+
+document (|
+  title = {g(一様分布)からの三次関数gの最尤推定};
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  +section{概要1}<
+    +p{
+      区間${ \[ 0 , 1 \] }上の連続一様分布に従う確率変数${K}を導入し、三次関数${\app{g}{x} = a + bx + cx^2 +dx^3}を用いて${X = \app{g}{K}}と書ける確率変数を考える。ただし、${g}は単調増加するものとするので、${d>0}, ${c^2-3bd < 0}を前提とする。このとき、パラメータの最尤推定をしてみる。
+    }
+  >
+  +section{3パラメータ}<
+    +subsection{概要}<
+      +p{
+        区間${ \[ 0 , 1 \] }上の連続一様分布に従う確率変数${K}を導入し${X = A\paren{K-B}^3+C\paren{K-B}}と書ける確率変数を考える。ただし、${A>0, C>0, 0<B<1}とする。
+        ${B}は${X}が0以下になる確率を表す。このとき、パラメータの最尤推定をしてみる。
+      }
+    >
+    +subsection{累積分布関数と確率密度関数}<
+      +p{
+        とりあえず、累積分布関数と確率密度関数を求める。${\app{G}{x} = A\paren{x-B}^3+C\paren{x-B} \paren{0 < x < 1}}の逆関数が累積分布関数であるので、
+        ${
+          x = A\paren{y-B}^3+C\paren{y-B}
+        } である。ここで
+        ${
+          k=\sqrt{\frac{3A}{4C}}
+        } とおくと
+      }
+      +math(
+        ${ 
+          \frac{3k}{C}x = 4k^3 \paren{y-B}^3+3k\paren{y-B}
+        }
+      );
+      +pn{
+        ここで${k\paren{y-B}=\sinh \lambda}とおくと${ 
+          \frac{3k}{C}x = 4\sinh^3 \lambda+3\sinh \lambda = \sinh 3\lambda
+        }であり、これは${\frac{\app{\arsinh}{\frac{3k}{C}x}}{3} = \lambda}と書ける。
+      }
+      +pn{
+        ゆえに、累積分布関数は${y=\app{F}{x} = B + \frac{1}{k}\sinh \frac{\app{\arsinh}{\frac{3k}{C}x}}{3}}(${\app{G}{0}<x<\app{G}{1}})であり、確率密度関数はこれを微分して
+      }
+      +math(${
+        \app{f}{x} = \frac{1}{k}\frac{d}{dx}\sinh \frac{\app{\arsinh}{\frac{3k}{C} x}}{3} = \frac{1}{k}\cosh \frac{\app{\arsinh}{\frac{3k}{C}x}}{3} \cdot \frac{d}{dx} \frac{\app{\arsinh}{\frac{3k}{C}x}}{3}
+      });
+      +math(${
+       = \frac{1}{3k}\cosh \frac{\app{\arsinh}{\frac{3k}{C}x}}{3} \cdot \frac{1}{\sqrt{1+\paren{\frac{3k}{C}x}^2}} \cdot \frac{3k}{C} 
+      });
+      +math(${
+       = \frac{1}{C}\cosh \frac{\app{\arsinh}{\frac{3k}{C}x}}{3} \cdot \frac{1}{\sqrt{1+\paren{\frac{3k}{C}x}^2}}
+      });
+      +p{
+        つまり、${\app{f}{x}}の式の形の中に露わには${B}が現れない。（${B}は定義域を定める役割のみを果たす。）
+      }
+      +pn{
+        以後、${D=\frac{3k}{C}}なるパラメータを導入することとする。
+      }
+    >
+    +subsection{最尤推定}<
+      +p{
+        3つのパラメータ${B}, ${C}, ${D}を推定することを考える。${X_1, X_2 ... X_n} の${n}個のデータがあったとき、このデータが生成される確率密度の${\ln}は、データが全て${\app{G}{0}<x_i<\app{G}{1}}を満たす場合は
+      }
+      +math(${
+        \app{J}{C,D} = \sums{i=1}{n} \app{\ln}{\frac{1}{C}\cosh \frac{\app{\arsinh}{Dx_i}}{3} \cdot \frac{1}{\sqrt{1+\paren{Dx_i}^2}} }
+      });
+      +math(${
+        = -\sums{i=1}{n} \ln C+ \sums{i=1}{n}\app{\ln}{\cosh \frac{\app{\arsinh}{Dx_i}}{3} \cdot \frac{1}{\sqrt{1+\paren{Dx_i}^2}} }
+      });
+      +math(${
+        \frac{\partial J}{\partial C} = -\sums{i=1}{n} \frac{1}{C}
+      });
+    >
+  >
+>
