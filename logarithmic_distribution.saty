@@ -1,0 +1,86 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@import: local
+
+document (|
+  title = {対数分布};
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  +section{${\app{f}{k} = \frac{-1}{\app{\ln}{1-p}}  \frac{p^{k}}{k}} で${p}の最尤推定}<
+    +math(
+		  
+      ${\app{L}{p} = \prods{i=1}{n}  \frac{-1}{\app{\ln}{1-p}}  \frac{p^{x_i}}{x_i}}
+    );
+    +math(
+      ${\ln \app{L}{p} = \sums{i=1}{n}\paren{ \ln\paren{ \frac{-1}{\ln\paren{1-p}}} +  x_i\ln p - \ln x_i} }
+    );
+    +math(${
+      \frac{\partial \ln \app{L}{p}}{\partial p } = \sums{i=1}{n} \frac{1}{\paren{1-p}\app{\ln}{ 1-p}} +\sums{i=1}{n}  \frac{x_i}{p}
+    });
+    +pn{
+      これを${0}とおくと
+    }
+    +math(${
+      -\frac{n}{\paren{1-p\hat}\app{\ln}{ 1-p\hat}} =\sums {i=1}{n}  \frac{x_i}{p\hat}
+    });
+    +math(${
+      -\frac{np\hat}{\paren{1-p\hat}\app{\ln}{ 1-p\hat}} =\sums {i=1}{n} x_i
+    });
+    +math(${
+      -\frac{np\hat}{\paren{1-p\hat}\app{\ln}{ 1-p\hat}} =n x \bar
+    });
+    +pn{
+      ${q=\frac{1}{1-p\hat}}とおくと${p\hat=1-1/q}であり、また${q\ge 1}である。
+    }
+    +math(${
+      \frac{pq}{\ln q} = x\bar
+    });
+    +math(${
+      \frac{q-1}{\ln q} = x\bar
+    });
+    +pn{
+      ${r=\ln q}とおくと${r>0}で、${\frac{e^r-1}{r} =x\bar}。${x\bar>1}である限りこの解は一意に存在する。
+    }
+  >
+  +section{W関数で解く}<
+    +pn{
+
+      さて、W関数で解くことを考えてみよう。${u=\frac{1}{x\bar}}とおく。${-s = r + u}とおけば${e^{-s-u} = -x\bar} なので ${-ue^{-u} = se^s}。
+      これの${s = -u}でないほうの解を求めればいい。${-u> -1}なので${s=W_{-1}\paren{-ue^{-u}}}である。
+
+      具体例として、${x \bar = \frac{215}{168} }であるときは、${s= -1.25601}であり、${r= -s-u = 0.47461}で${q=e^r=1.60739}なので${p\hat=0.37788}となる。
+
+    }
+    +pn{
+      ここまでの操作は結局、${
+      -\frac{p\hat}{\paren{1-p\hat}\app{\ln}{ 1-p\hat}} = x\bar
+      } を解いて、${p\hat}を${x\bar}の閉じた式で表す方法を求めるという操作である。後で使うのでまとめておくと、${p\hat=1- \app{\exp}{ u+W_{-1}\paren{-ue^{-u}}}}, ${u=\frac{1}{x\bar}}である。ということで、${\app{Q}{u} = 1- \app{\exp}{ u+W_{-1}\paren{-ue^{-u}}}}を定義すれば${p\hat=\app{Q}{\frac{1}{x\bar}}}と書ける。
+    }
+  >
+  +section{estimatorの良さ}<
+    +pn{
+      さて、実は${\app{E}{x} = \frac{-1}{\app{\ln}{1-p}}\frac{p}{1-p} } である。つまりこれは${p = \app{Q}{\frac{1}{\app{E}{x}}}}ということであり、ここから直ちに「${n}が十分大きい時${p}のestimator ${p\hat}は${p}の真の値に近づく」ということが分かる。
+    }
+    +pn{
+      ${\app{E}{p\hat}}とか${\app{Var}{p\hat}}とか求めるのは無理そうで、普通に${x\bar}を攻めればよさそうという話になる。
+    }
+    +pn{
+      ${\app{E}{x\bar} = \app{E}{x} = \frac{-1}{\app{\ln}{1-p}}\frac{p}{1-p}}、${\app{Var}{x\bar} = -np \frac{p + \app{\ln}{1-p}}{\paren{1-p}^2\paren{\app{\ln}{1-p}}^2} } であるので、
+
+      中心極限定理より、${n}が十分大きいときは
+    }
+    +math(${
+      \app{P}{ x\bar - \frac{z_{\alpha/2}}{\sqrt{n}\sqrt{\app{Var}{x}}} \le \app{E}{x} \le x\bar +   \frac{z_{\alpha/2}}{\sqrt{n}\sqrt{\app{Var}{x}}}} = 1-\alpha
+    });
+    +pn{
+      である。ここで${\app{Var}{x} = -p \frac{p + \app{\ln}{1-p}}{\paren{1-p}^2\paren{\app{\ln}{1-p}}^2} } の${p}を${p\hat}で推定することを考えると、まずは${
+      -\frac{p\hat}{\paren{1-p\hat}\app{\ln}{ 1-p\hat}} = x\bar
+      }なので${  -x\bar^2 +  \frac{x\bar }{1-p\hat} }と書け、つまり${-x\bar^2 +  \frac{x\bar }{ \app{\exp}{ u+W_{-1}\paren{-ue^{-u}}} } }
+    }
+  >
+>
