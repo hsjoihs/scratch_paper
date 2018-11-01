@@ -1,0 +1,132 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@import: local2
+
+document (|
+  title = {ナブラの上に矢印を載せたい};
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  
+  +section{案件}<
+    
+    +display-boxes('<
+      +pn{(local.satyh)}
+    >)(```
+        let-math \mu  = greek-lowercase 0x1D707 0x1D741
+        let-math \vec = math-char MathOrd (single 0x20D7)
+    ```);
+
+    +pn{
+      としてやると、${x}や${\mu}の上には矢印が正しく出る。
+    }
+
+    +display-boxes('<
+        +math(${x\vec \cdot \mu\vec});
+    >)(```
+        +math(${x\vec \cdot \mu\vec});
+    ```);
+
+    
+
+    +pn{
+      ${\lambda}の上にも、不格好ながら出る。
+    }
+
+    +display-boxes('<
+        +math(${x\vec \cdot \lambda\vec});
+    >)(```
+        +math(${x\vec \cdot \lambda\vec});
+    ```);
+
+    
+
+    +pn{
+      しかし、
+    }
+
+    +display-boxes('<
+      +pn{(local.satyh)}
+    >)(```
+        let-math \nabla = math-char MathPrefix (single 0x2207)
+    ```);
+
+    +pn{
+      としたとき、${\nabla}の上には出ない。
+    }
+
+    +display-boxes('<
+        +math(${x\vec \cdot \nabla\vec\psi});
+    >)(```
+        +math(${x\vec \cdot \nabla\vec\psi});
+    ```);
+    
+    
+    +display-boxes('<
+      +pn{(local.satyh)}
+    >)(```
+        let-math \nablavec = math-char MathPrefix (string-unexplode [0x2207; 0x20D7])
+    ```);
+
+    +pn{
+      として
+    }
+
+    +display-boxes('<
+        +math(${x\vec \cdot \nablavec\psi});
+    >)(```
+        +math(${x\vec \cdot \nablavec\psi});
+    ```);
+
+    +pn{
+      でも駄目。
+    }
+
+    +display-boxes('<
+      +pn{(local.satyh)}
+    >)(```
+        let-math \nab = math-char MathOrd (single 0x2207)
+    ```);
+
+    +pn{
+      としても${\nab}の上には出ない。
+    }
+
+     +display-boxes('<
+        +math(${x\vec \cdot \nab\vec\psi});
+    >)(```
+        +math(${x\vec \cdot \nab\vec\psi});
+    ```);
+
+    +pn{
+      なお
+    }
+
+    +display-boxes('<
+      +pn{(local.satyh)}
+    >)(```
+        let-math \ln    = math-char MathPrefix `ln`
+    ```);
+
+
+    +pn{
+      からの
+    }
+    
+    +display-boxes('<
+        +math(${x\vec \cdot \ln\vec\psi});
+    >)(```
+        +math(${x\vec \cdot \ln\vec\psi});
+    ```);
+
+    +pn{
+      は出るので、フォントの問題かなぁ。じゃあ諦めるか。
+    }
+
+
+  >
+>

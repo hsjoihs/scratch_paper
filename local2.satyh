@@ -1,0 +1,78 @@
+@require: stdjabook
+@require: hdecoset
+@require: vdecoset
+@require: code
+@require: list
+
+let-block ctx +centering it =
+  line-break true true ctx (inline-fil ++ read-inline ctx it ++ inline-fil)
+
+
+let-block ctx +image-frame content =
+  let pads = (10pt, 10pt, 10pt, 10pt) in
+  let decoset = VDecoSet.simple-frame-stroke 1pt Color.black in
+    block-frame-breakable ctx pads decoset (fun ctx -> read-block ctx '<+centering{#content;}>)
+
+let-inline ctx \insert-image w path =
+  let img = load-image path in
+    use-image-by-width img w
+
+let-block ctx +frame content =
+  let pads = (10pt, 10pt, 10pt, 10pt) in
+  let decoset = VDecoSet.simple-frame-stroke 1pt (Color.gray 0.75) in
+    block-frame-breakable ctx pads decoset (fun ctx -> read-block ctx content)
+
+
+let-block ctx +display-boxes content code =
+  read-block (ctx |> set-paragraph-margin 12pt 0pt) '<+frame(content);>
+    +++ read-block (ctx |> set-paragraph-margin 0pt 12pt) '<+code(code);>
+
+let single cp = string-unexplode [cp]
+
+let-math \cdot = math-char MathRel `⋅`
+let-math \vec = math-char MathOrd (single 0x20D7)
+let-math \nabla = math-char MathPrefix (single 0x2207)
+let-math \nab = math-char MathOrd (single 0x2207)
+let-math \nablavec = math-char MathPrefix (string-unexplode [0x2207; 0x20D7])
+let-math \ln    = math-char MathPrefix `ln`
+let-math \sinh    = math-char MathPrefix `sinh`
+let-math \cosh    = math-char MathPrefix `cosh`
+let-math \arsinh    = math-char MathPrefix `arsinh`
+let-math \exp    = math-char MathPrefix `exp`
+
+
+let greek-uppercase cp cpb cpr cprb =
+    let s = single cp in
+    let sb = single cpb in
+    let sr = single cpr in
+    let srb = single cprb in
+      math-variant-char MathOrd (|
+        italic        = s;
+        bold-italic   = sb;
+        roman         = sr;
+        bold-roman    = srb;
+        script        = s;
+        bold-script   = sb;
+        fraktur       = s;
+        bold-fraktur  = sb;
+        double-struck = s;
+      |)
+  let greek-lowercase cp cpb =
+    let s = single cp in
+    let sb = single cpb in
+      math-variant-char MathOrd (|
+        italic        = s;
+        bold-italic   = sb;
+        roman         = s;
+        bold-roman    = sb;
+        script        = s;
+        bold-script   = sb;
+        fraktur       = s;
+        bold-fraktur  = sb;
+        double-struck = s;
+      |)
+
+
+let-math \lambda= greek-lowercase 0x1D706 0x1D740
+let-math \mu    = greek-lowercase 0x1D707 0x1D741
+
