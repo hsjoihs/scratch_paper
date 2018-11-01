@@ -30,6 +30,8 @@ let-block ctx +display-boxes content code =
 let-math \sums m1 m2 =
   ${\upper{\lower{\sum}{#m1}}{#m2}}
 
+let single cp = string-unexplode [cp]
+
 let-math \cup = math-char MathRel `∪`
 let-math \cap = math-char MathRel `∩`
 let-math \approx = math-char MathRel `≈`
@@ -43,12 +45,16 @@ let-math \partial = math-char MathPrefix `∂`
 let-math \ordd = math-char MathPrefix `d`
 let-math \prime = math-char MathOrd `′`
 let-math \phat = math-char MathOrd `𝑝̂`
+let-math \hbar = math-char MathOrd `ℏ`
 let-math \qhat = math-char MathOrd `𝑞̂`
 let-math \muhat = math-char MathOrd `𝜇̂`
 let-math \hat = math-char MathOrd `̂`
 let-math \xbar = math-char MathOrd `𝑥̄`
 let-math \ybar = math-char MathOrd `𝑦̄`
 let-math \bar = math-char MathOrd `̄`
+let-math \vec = math-char MathOrd `⃗`
+let-math \nabla = math-char MathPrefix (single 0x2207)
+let-math \nablavec = math-char MathPrefix `∇⃗`
 let-math \ln    = math-char MathPrefix `ln`
 let-math \sinh    = math-char MathPrefix `sinh`
 let-math \cosh    = math-char MathPrefix `cosh`
@@ -60,7 +66,6 @@ let-math \product = math-big-char MathOp `∏`
 let-math \prods m1 m2 =
   ${\upper{\lower{\product}{#m1}}{#m2}}
 
-let single cp = string-unexplode [cp]
 let greek-uppercase cp cpb cpr cprb =
     let s = single cp in
     let sb = single cpb in

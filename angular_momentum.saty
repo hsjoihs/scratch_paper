@@ -1,0 +1,237 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@import: local
+
+document (|
+  title = {全角運動量演算子${L^2}};
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  +section{概要}<
+    +p{
+      全角運動量演算子${L^2}をシュッと表す。
+    }
+  >
+  +section{計算}<
+    +math(${L^2\psi = 
+      \paren{x\frac{\hbar}{i}\partial_y - y\frac{\hbar}{i}\partial_x}
+      \paren{x\frac{\hbar}{i}\partial_y - y\frac{\hbar}{i}\partial_x} \psi + ...
+    });
+    +math(${= 
+      x\frac{\hbar}{i}\partial_yx\frac{\hbar}{i}\partial_y\psi - x\frac{\hbar}{i}\partial_yy\frac{\hbar}{i}\partial_x\psi  -
+      y\frac{\hbar}{i}\partial_xx\frac{\hbar}{i}\partial_y\psi + y\frac{\hbar}{i}\partial_xy\frac{\hbar}{i}\partial_x\psi  + ...
+    });
+    +math(${
+      = -\hbar^2\paren{
+        x\partial_yx\partial_y\psi - x\partial_yy\partial_x\psi  -
+        y\partial_xx\partial_y\psi + y\partial_xy\partial_x\psi  + ...
+      }
+    });
+    +math(${
+      = -\hbar^2\paren{
+        x^2\partial_y^2\psi + y^2\partial_x^2\psi - x\partial_y\paren{y\partial_x\psi}  -
+        y\partial_x\paren{x\partial_y\psi}   + ...
+      }
+    });
+    +pn{
+      これの前半2項×3は
+    }
+    +math(${ 
+      -\hbar^2\paren{
+          x^2\partial_y^2\psi + y^2\partial_x^2\psi
+        + y^2\partial_z^2\psi + z^2\partial_y^2\psi
+        + z^2\partial_x^2\psi + x^2\partial_z^2\psi
+      }
+    });
+    +math(${
+      = \hbar^2\paren{
+        x^2\partial_x^2\psi + y^2\partial_y^2\psi + z^2\partial_z^2\psi
+      } - \hbar^2\paren{
+        x^2+ y^2+ z^2
+      }\paren{
+        \partial_x^2\psi + \partial_y^2\psi + \partial_z^2\psi
+      }
+    });
+    +math(${
+      = \hbar^2\paren{
+        x^2\partial_x^2\psi + y^2\partial_y^2\psi + z^2\partial_z^2\psi
+      } - \hbar^2 \|x\vec\|^2 \nabla^2\psi
+    });
+    +pn{
+      であり、これの後半2項は
+    }
+    +math(${ 
+      \hbar^2\paren{ 
+          x\partial_y\paren{y\partial_x\psi} 
+        + y\partial_x\paren{x\partial_y\psi}   + ... 
+      }
+   
+      = \hbar^2\paren{ 
+          x\partial_x\psi + xy\partial_y\partial_x\psi
+        + y\partial_y\psi + yx\partial_x\partial_y\psi   + ... 
+      }
+    });
+    +math(${
+      = \hbar^2\paren{ 
+          x\partial_x\psi 
+        + y\partial_y\psi
+        + 2xy\partial_y\partial_x\psi  + ... 
+      }
+    });
+
+    +math(${
+       = \hbar^2\paren{ 
+          2x\partial_x\psi 
+        + 2y\partial_y\psi
+        + 2z\partial_z\psi
+        + 2xy\partial_x\partial_y\psi
+        + 2yz\partial_y\partial_z\psi
+        + 2zx\partial_z\partial_x\psi
+      }
+    });
+
+    +math(${
+      = 2\hbar^2\paren{ 
+           x\partial_x\psi 
+         + y\partial_y\psi
+         + z\partial_z\psi
+      } - \hbar^2\paren{
+        x^2\partial_x^2\psi + y^2\partial_y^2\psi + z^2\partial_z^2\psi
+      }
+    });
+    +math(${
+      + \hbar^2\paren{
+           2xy\partial_x\partial_y\psi
+         + 2yz\partial_y\partial_z\psi
+         + 2zx\partial_z\partial_x\psi
+         + x^2\partial_x^2\psi + y^2\partial_y^2\psi + z^2\partial_z^2\psi
+      }
+    });
+
+    +math(${
+      = 2\hbar^2 x\vec \cdot \nabla\vec\psi - \hbar^2\paren{
+        x^2\partial_x^2\psi + y^2\partial_y^2\psi + z^2\partial_z^2\psi
+      }
+    });
+    +math(${
+      + \hbar^2 x\paren{
+          x\partial_x
+        + y\partial_y
+        + z\partial_z
+      } \partial_x\psi + \hbar^2y\paren{
+          x\partial_x
+        + y\partial_y
+        + z\partial_z
+      } \partial_y\psi + \hbar^2z\paren{
+          x\partial_x
+        + y\partial_y
+        + z\partial_z
+      } \partial_z\psi
+    });
+
+    +math(${
+      = 2\hbar^2 x\vec \cdot \nabla\vec\psi - \hbar^2\paren{
+        x^2\partial_x^2\psi + y^2\partial_y^2\psi + z^2\partial_z^2\psi
+      }
+      + \hbar^2 x\paren{
+        x\vec \cdot \nabla\vec
+      } \partial_x\psi + \hbar^2y\paren{
+        x\vec \cdot \nabla\vec
+      } \partial_y\psi + \hbar^2z\paren{
+        x\vec \cdot \nabla\vec
+      } \partial_z\psi
+    });
+
+    +math(${
+      = 2\hbar^2 x\vec \cdot \nabla\vec\psi - \hbar^2\paren{
+        x^2\partial_x^2\psi + y^2\partial_y^2\psi + z^2\partial_z^2\psi
+      }
+      + \hbar^2 x\vec \cdot \paren {
+        \paren{x\vec \cdot \nabla\vec}
+        \nabla\vec\psi
+      }
+    });
+
+    +pn{
+      したがって
+    }
+
+    +math(${L^2\psi
+      =  - \hbar^2 \|x\vec\|^2 \nabla^2\psi
+      + 2\hbar^2 x\vec \cdot \nabla\vec\psi 
+      + \hbar^2 x\vec \cdot \paren {
+        \paren{x\vec \cdot \nabla\vec}
+        \nabla\vec\psi
+      }
+    });
+
+  >
+  +section{極座標}<
+    +math(${L^2\psi
+      =  - \hbar^2 \|x\vec\|^2 \nabla^2\psi
+      + 2\hbar^2 x\vec \cdot \nabla\vec\psi 
+      + \hbar^2 x\vec \cdot \paren {
+        \paren{x\vec \cdot \nabla\vec}
+        \nabla\vec\psi
+      }
+    });
+    +pn{に}
+    +math(${
+      x\vec = re\vec_r
+    });
+    +math(${
+      r^2\nabla^2\psi = \partial_r\paren{r^2 \frac{\partial\psi}{\partial r} } + \frac{1}{\sin\theta} \partial_\theta\paren{\sin\theta \frac{\partial\psi}{\partial \theta}} + \frac{1}{\sin^2\theta} \partial_\phi^2 \psi
+    });
+    +math(${
+      \nabla\vec\psi = e\vec_r\frac{\partial\psi}{\partial r} + \frac{1}{r} e\vec_\theta \frac{\partial\psi}{\partial \theta} + \frac{1}{r\sin\theta} e\vec_\phi \frac{\partial\psi}{\partial \phi}
+    });
+    +math(${
+      x \vec \cdot \nabla\vec = r\partial_r
+    });
+    +pn{
+      を代入すると
+    }
+    +math(${
+      L^2\psi =  - \hbar^2 \paren{ 
+        \partial_r\paren{r^2\partial_r \psi} + \frac{1}{\sin\theta} \partial_\theta\paren{\sin\theta \partial_\theta \psi} + \frac{1}{\sin^2\theta} \partial_\phi^2 \psi
+      }
+    });
+    +math(${
+      + 2\hbar^2 r \partial_r \psi 
+      + \hbar^2 x\vec \cdot
+        \paren{r \partial_r} \paren{e\vec_r\frac{\partial\psi}{\partial r} + \frac{1}{r} e\vec_\theta \frac{\partial\psi}{\partial \theta} + \frac{1}{r\sin\theta} e\vec_\phi \frac{\partial\psi}{\partial \phi}}
+    });
+
+    +math(${
+      = - \hbar^2 \paren{ 
+        \partial_r\paren{r^2\partial_r \psi} + \frac{1}{\sin\theta} \partial_\theta\paren{\sin\theta \partial_\theta \psi} + \frac{1}{\sin^2\theta} \partial_\phi^2 \psi
+      }
+      + 2\hbar^2 r \partial_r \psi 
+      + \hbar^2 r \paren{r \partial_r} \frac{\partial\psi}{\partial r} 
+    });
+
+    +math(${
+      = - \hbar^2 \paren{ 
+        \frac{1}{\sin\theta} \partial_\theta\paren{\sin\theta \partial_\theta \psi} + \frac{1}{\sin^2\theta} \partial_\phi^2 \psi
+      } - \hbar^2 \partial_r \paren{r^2\partial_r \psi}
+      + 2\hbar^2 r \partial_r \psi 
+      + \hbar^2 r^2
+        
+          \frac{\partial^2\psi}{\partial r^2} 
+    });
+
+    +math(${
+      = - \hbar^2 \paren{ 
+        \frac{1}{\sin\theta} \partial_\theta\paren{\sin\theta \partial_\theta \psi} + \frac{1}{\sin^2\theta} \partial_\phi^2 \psi
+      }
+    });
+
+    +pn{
+      となって、ラプラシアンの${\theta}・${\phi}絡みだけを残したやつが全角運動量演算子になることにもそこそこ納得がいきそうな気がしそうである。
+    }
+  >
+>
