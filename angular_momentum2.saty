@@ -1,0 +1,155 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@import: local
+
+document (|
+  title = {全角運動量演算子${L^2} with アインシュタインの記法};
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  +section{概要}<
+    +p{
+      全角運動量演算子${L^2}をシュッと表す with アインシュタインの記法。
+    }
+  >
+  +section{計算}<
+    +math(${L^2\psi = \frac{1}{2} g_{km} g_{ln} \paren{X^k\frac{\hbar}{i}\partial^l - X^l\frac{\hbar}{i}\partial^k} \paren{X^m\frac{\hbar}{i}\partial^n - X^n\frac{\hbar}{i}\partial^m}\psi
+    });
+    +math(${= -\frac{\hbar^2}{2} g_{km} g_{ln} 
+      \paren{
+        X^k\partial^lX^m\partial^n\psi - X^k\partial^lX^n\partial^m\psi
+         - X^l\partial^kX^m\partial^n\psi +X^l\partial^kX^n\partial^m\psi
+      } 
+    });
+
+    +math(${= -\frac{\hbar^2}{2}  
+      \paren{
+        g_{km} g_{lp} X^k\partial^lX^m\partial^p\psi - g_{kp} g_{ln} X^k\partial^lX^n\partial^p\psi
+         - g_{km} g_{lp} X^l\partial^kX^m\partial^p\psi + g_{kp} g_{ln} X^l\partial^kX^n\partial^p\psi
+      } 
+    });
+
+    +math(${= -\frac{\hbar^2}{2}  
+      \paren{
+        g_{km} \delta_l^p \paren{X^k\partial^lX^m - X^l\partial^kX^m}
+
+          + \delta_{k}^p g_{ln} \paren{X^l\partial^kX^n -  X^k\partial^lX^n}
+      } \nabla_p\psi
+    });
+
+    +pn{
+      ここで
+    }
+
+    +math(${
+      X^k\partial^lX^mf = X^kX^m\partial^lf + X^kg^{lm}f
+    });
+
+    +pn{
+      なので
+    }
+
+    +math(${
+      g_{km} \delta_l^p \paren{X^k\partial^lX^m - X^l\partial^kX^m}
+      + \delta_{k}^p g_{ln} \paren{X^l\partial^kX^n -  X^k\partial^lX^n}
+    });
+
+    +math(${
+       = g_{km} \delta_l^p \paren{X^kX^m\partial^l + X^kg^{lm} - X^lX^m\partial^k - X^lg^{km}}
+    
+       + \delta_{k}^p g_{ln} \paren{X^lX^n\partial^k + X^lg^{kn} -  X^kX^n\partial^l-  X^kg^{ln}}
+    });
+
+    +math(${
+       = g_{km} \delta_l^p X^kX^m\partial^l + g_{km} \delta_l^pX^kg^{lm} - g_{km} \delta_l^pX^lX^m\partial^k - g_{km} \delta_l^pX^lg^{km}
+    });
+
+    +math(${
+       + \delta_{k}^p g_{ln} X^lX^n\partial^k + \delta_{k}^p g_{ln} X^lg^{kn} -  \delta_{k}^p g_{ln}X^kX^n\partial^l-  \delta_{k}^p g_{ln}X^kg^{ln}
+    });
+
+    +math(${
+       = g_{km} \delta_q^p X^kX^m\partial^q + X^p - g_{qm} \delta_l^pX^lX^m\partial^q - 3 X^p
+    
+       + \delta_{q}^p g_{ln} X^lX^n\partial^q + X^p -  \delta_{k}^p g_{qn}X^kX^n\partial^q- 3 X^p
+    });
+
+    +math(${
+      = \paren {
+        g_{km} \delta_q^p X^kX^m - g_{qm} \delta_l^pX^lX^m
+        + \delta_{q}^p g_{ln} X^lX^n -  \delta_{k}^p g_{qn}X^kX^n
+      } \partial^q - 4 X^p
+    });
+
+    +pn{
+      であり
+    }
+
+    +math(${L^2\psi = -\frac{\hbar^2}{2}  
+      \paren{
+        \paren {
+          g_{km} \delta_q^p X^kX^m - g_{qm} \delta_l^pX^lX^m
+          + \delta_{q}^p g_{ln} X^lX^n -  \delta_{k}^p g_{qn}X^kX^n
+        } \partial^q - 4 X^p
+      } \nabla_p\psi
+    });
+
+    +math(${ = -\frac{\hbar^2}{2}  
+      
+        \paren {
+          \delta_q^p \paren{g_{km}  X^kX^m +  g_{ln} X^lX^n}
+          - g_{qm} \delta_l^pX^lX^m
+           -  \delta_{k}^p g_{qn}X^kX^n
+        } \nabla^q \nabla_p\psi + 2\hbar^2 X^p
+       \nabla_p\psi
+    });
+
+    +math(${ = -\hbar^2
+      
+        \paren {
+          \delta_q^p \paren{g_{km}  X^kX^m}
+          - \delta_k^p \paren{
+            g_{qm} X^kX^m
+          }
+        } \nabla^q \nabla_p\psi + 2\hbar^2 X^p
+       \nabla_p\psi
+    });
+
+    +math(${ = -\hbar^2
+      
+        \paren {
+          \delta_q^p \paren{g_{km}  X^kX^m}
+          - \delta_k^p \paren{
+            g_{qm} X^kX^m
+          }
+        } \nabla^q \nabla_p\psi + 2\hbar^2 X^p
+       \nabla_p\psi
+    });
+
+    +math(${ = -\hbar^2
+          \paren{g_{km}  X^kX^m} \nabla^2\psi
+          + \hbar^2 \paren{
+             X^pX^m
+          }
+       \nabla_m \nabla_p\psi + 2\hbar^2 X^p
+       \nabla_p\psi
+    });
+
+    +pn{
+      したがって
+    }
+
+    +math(${L^2\psi
+      =  - \hbar^2 \|x\vec\|^2 \nabla^2\psi
+      + \hbar^2 x\vec \cdot \paren {
+        \paren{x\vec \cdot \nabla\vec}
+        \nabla\vec\psi
+      }
+      + 2\hbar^2 x\vec \cdot \nabla\vec\psi 
+    });
+  >
+>
