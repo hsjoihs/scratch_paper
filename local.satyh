@@ -33,6 +33,7 @@ let-math \sums m1 m2 =
 let single cp = string-unexplode [cp]
 
 let-math \cup = math-char MathRel `∪`
+let-math \cross = math-char MathRel `⨯`
 let-math \cap = math-char MathRel `∩`
 let-math \approx = math-char MathRel `≈`
 let-math \le = math-char MathRel `≤`

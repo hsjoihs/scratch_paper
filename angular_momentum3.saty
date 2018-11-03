@@ -1,0 +1,72 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@import: local
+
+document (|
+  title = {${\paren{A\cross B}\cdot \paren{C\cross D}}};
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  +section{概要}<
+    +p{
+      ${
+        \paren{A\cross B}\cdot \paren{C\cross D} = 
+        \paren{A\cdot C}\paren{B\cdot D}- \paren{B\cdot C}\paren{A\cdot D}
+      } はcommutableなときには成り立ちそうだが、そうでないときはどうなんだろう。
+    }
+  >
+  +section{計算}<
+    +math(${
+      \paren{A\cross B}\cdot \paren{C\cross D}
+      = \epsilon_{ijk}A_j B_k \epsilon_{ilm} C_l  D_m
+      = \paren{\delta_{jl}\delta_{km} - \delta_{jm}\delta_{kl} }A_j B_k C_l  D_m
+    });
+    +math(${
+      = A_j B_k C_j D_k - A_j B_k C_k D_j
+    });
+    +pn{あっなるほど。}
+  >
+  +section{全角運動量演算子}<
+    +math(${
+      L^2 = \paren{x\hat\cross p\hat}\cdot \paren{x\hat\cross p\hat}
+      = x\hat_j p\hat_k x\hat_j p\hat_k - x\hat_j p\hat_k x\hat_k p\hat_j
+      = -\hbar^2\paren{x_j \nabla_k x_j \nabla_k - x_j \nabla_k x_k \nabla_j}
+    });
+    +pn{ここで 
+      ${\nabla_k x_j = x_j\nabla_k + \delta_{kj}} と
+      ${\nabla_k x_k = x_k\nabla_k + 3} より、
+    }
+    +math(${
+      L^2 = -\hbar^2\paren{
+        x_j \paren{x_j\nabla_k + \delta_{kj}} \nabla_k - x_j \paren{x_k\nabla_k + 3} \nabla_j
+      }
+    });
+    +math(${
+      = -\hbar^2\paren{
+        x_j x_j\nabla_k  \nabla_k 
+        + x_j \delta_{kj} \nabla_k 
+        - x_j x_k\nabla_k  \nabla_j
+        - x_j 3 \nabla_j
+      }
+    
+      = -\hbar^2\paren{
+        x_j x_j\nabla_k  \nabla_k 
+        - x_j x_k\nabla_k  \nabla_j
+        - x_j 2 \nabla_j
+      }
+    });
+    +math(${
+      =  - \hbar^2 \|x\vec\|^2 \nabla^2
+      + \hbar^2 x\vec \cdot \paren {
+        \paren{x\vec \cdot \nabla\vec}
+        \nabla\vec
+      }
+      + 2\hbar^2 x\vec \cdot \nabla\vec 
+    });
+
+  >
+>
