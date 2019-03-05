@@ -1,0 +1,32 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@import: local
+
+document (|
+  title = {${\cos}};
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  +section{}<
+    +math(${
+      \frac{dy}{dx} = x + y
+    });
+    +math(${
+      e^{-x}\paren{\frac{dy}{dx} -y} = xe^{-x} 
+    });
+    +math(${
+      \frac{d}{dx}\paren{ ye^{-x} } = xe^{-x}
+    });
+    +math(${
+      ye^{-x}= \int xe^{-x} dx = -e^{-x} \paren{x + 1} + C
+    });
+    +math(${
+      y=  - \paren{x + 1} + Ce^{x}
+    });
+  >
+>
+

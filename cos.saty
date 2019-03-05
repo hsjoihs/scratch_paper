@@ -1,0 +1,31 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@import: local
+
+document (|
+  title = {${\cos}};
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  +section{}<
+    +math(${
+      \cos\paren{\frac{2\pi}{3}} = -\frac{1}{2}
+    });
+    +math(${
+      \cos\paren{\frac{2\pi}{4}} = 0
+    });
+    +math(${
+      \cos\paren{\frac{2\pi}{5}} = \frac{\sqrt{5}-1}{4}
+    });
+    +math(${
+      \cos\paren{\frac{2\pi}{6}}=\frac{1}{2}
+    });
+    +math(${
+      \cos\paren{\frac{2\pi}{15}} = \frac{\sqrt{5}+1+\sqrt{30-6\sqrt{5}}}{8}
+    });
+  >
+>
