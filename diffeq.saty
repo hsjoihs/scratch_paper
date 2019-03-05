@@ -6,7 +6,7 @@
 @import: local
 
 document (|
-  title = {${\cos}};
+  title = {かんたんな微分方程式};
   author = {hsjoihs};
   show-title = true;
   show-toc = false;
@@ -26,6 +26,11 @@ document (|
     });
     +math(${
       y=  - \paren{x + 1} + Ce^{x}
+    });
+  >
+  +section{}<
+    +math(${
+      \frac{d^2}{dt^2}\app{\sin}{\omega t + \theta _0} = -\omega^2\app{\sin}{\omega t + \theta_0}
     });
   >
 >

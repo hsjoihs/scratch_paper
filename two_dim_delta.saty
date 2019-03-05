@@ -1,0 +1,110 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@import: local
+
+document (|
+  title = {2次元極座標のデルタ};
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  +section{}<
+    +math(${
+      x \vec = \paren{x, y}, x_0 \vec = \paren{x_0, y_0}
+    });
+    +math(${
+      \app{\delta}{x \vec - x_0 \vec }  \equiv \app{\delta}{x-x_0}\app{\delta}{y-y_0}
+    });
+    +math(${
+      x = r\cos\theta, y = r\sin\theta
+    });
+    +math(${
+      x_0 = r_0\cos\theta_0, y_0 = r_0\sin\theta_0
+    });
+    +math(${
+      \app{\delta}{x \vec - x_0 \vec} = \lim_{n \arrow \infty} \frac{n}{\pi} e^{-n\paren{x-x_0}^2-n\paren{y-y_0}^2}
+    });
+    +math(${
+      \paren{x-x_0}^2+\paren{y-y_0}^2 = x^2 + y^2 - 2xx_0-2yy_0 +x_0^2 +y_0^2 
+    });
+    +math(${
+      = r^2 + r_0^2 - 2\paren{x,y}\cdot\paren{x_0,y_0}
+      = r^2 + r_0^2 - 2rr_0 \app{\cos}{\theta -\theta _0}
+    });
+    +math(${
+      \app{\delta}{x \vec - x_0\vec}
+      = \lim_{n \arrow \infty} \frac{n}{\pi} e^{-n\paren{x-x_0}^2-n\paren{y-y_0}^2}
+      = \lim_{n \arrow \infty} \frac{n}{\pi}  e^{-n\paren{r^2 + r_0^2 - 2rr_0 \app{\cos}{\theta -\theta_0}}}
+    });
+    +pn{
+      どうせ高次の項など効いてこないので（そういうとこやぞ）
+    }
+    +math(${
+      = \lim_{n \arrow \infty} \frac{n}{\pi}  
+      e^{
+        -n\paren{
+          r^2 + r_0^2 - 2rr_0 \paren{
+            1-\frac{1}{2}\paren{\theta -\theta_0}^2
+          }
+        }
+      } 
+    });
+    +math(${
+      = \lim_{n \arrow \infty} \frac{n}{\pi}  
+      e^{
+        -n\paren{
+          r^2 + r_0^2 - 2rr_0 + rr_0 \paren{
+            \theta -\theta_0
+          }^2
+        }
+      }
+    });
+    +math(${
+      = \lim_{n \arrow \infty}  \sqrt{\frac{n}{\pi}}  
+      e^{
+        -n\paren{r- r_0}^2
+      } \cdot \sqrt{\frac{n}{\pi}} 
+      e^{ 
+        -n \paren{
+          rr_0\paren{\theta -\theta_0}^2
+        }
+      } 
+    });
+    +math(${
+      =\app{\delta}{r-r_0}
+      \app{\delta}{
+        \sqrt{rr_0}\paren{\theta -\theta_0}
+      }
+    });
+    +math(${
+      \int \int \app{f}{r, \theta} \app{\delta}{x\vec - x_0\vec} dr d\theta =
+      \int \int \app{f}{r, \theta} \app{\delta}{r-r_0}
+      \app{\delta}{
+        \sqrt{rr_0} \paren{\theta -\theta_0}
+      } dr d\theta
+    });
+    +math(${
+      = \int \app{f}{r_0, \theta} \app{\delta}{
+        \sqrt{r_0r_0} \paren{\theta -\theta_0}
+      }  d\theta
+    });
+    +math(${
+      = \int \app{f}{r_0, \theta} \frac{1}{r_0}
+      \app{\delta}{\theta -\theta_0 } d\theta
+    });
+    +math(${
+      = \int \int \app{f}{r, \theta}  \frac{1}{r} 
+      \app{\delta}{r-r_0}
+      \app{\delta}{\theta -\theta_0}
+      dr d\theta
+    });
+    +math(${
+      \app{\delta}{x \vec - x_0 \vec} = \frac{1}{r} 
+      \app{\delta}{r-r_0}
+      \app{\delta}{\theta -\theta_0}
+    });
+  >
+>

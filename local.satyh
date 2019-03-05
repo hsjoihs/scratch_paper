@@ -42,6 +42,7 @@ let-math \ge = math-char MathRel `≥`
 let-math \geqq = math-char MathRel `≧`
 let-math \cdot = math-char MathRel `⋅`
 let-math \nyoro = math-char MathRel `~`
+let-math \arrow = math-char MathRel `→`
 let-math \partial = math-char MathPrefix `∂`
 let-math \ordd = math-char MathPrefix `d`
 let-math \prime = math-char MathOrd `′`
