@@ -1,0 +1,79 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@import: local
+
+document (|
+  title = {Logarithmic distributionの最尤推定};
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  +section{概要}<
+    +p{
+      どうでもいいが、 https://en.wikipedia.org/wiki/Logarithmic_distribution に日本語記事がないし、
+      日本語でどういうのかよく分からん。中国語版は対数分布だった。
+    }
+  >
+  +section{${\app{f}{k} = \frac{-1}{\app{\ln}{1-p}}\frac{p^{k}}{k}} で${p}の最尤推定}<
+    +math(
+      ${\app{L}{p} = \prod _{i=1}^{n}  \frac{-1}{\app{\ln}{1-p}}\frac{p^{x_i}}{x_i}}
+    );
+    +math(
+      ${\ln \app{L}{p} = \sum _{i=1}^{n}\paren{ \ln\paren{ \frac{-1}{\app{\ln}{1-p}} } +  x_i\ln p - \ln x_i} }
+    );
+    +math(${
+      \frac{\partial \ln \app{L}{p}}{\partial p } = \sum _{i=1}^{n} \frac{1}{\paren{1-p}\ln \paren{1-p}} +\sum _{i=1}^{n}  \frac{x_i}{p}
+    });
+    +pn{
+      これを0とおくと
+    }
+    +math(${
+      -\frac{n}{\paren{1-p}\ln \paren{1-p}} =\sum _{i=1}^{n}  \frac{x_i}{p}
+    });
+    +math(${
+      -\frac{np}{\paren{1-p}\ln \paren{1-p}} =\sum _{i=1}^{n}  x_i
+    });
+    +math(${
+      -\frac{np}{\paren{1-p}\ln \paren{1-p}} = n \overline{x}
+    });
+    +pn{
+      ${q=\frac{1}{1-p}}とおくと${p=1-1/q}であり、また${q\ge 1}である。
+    }
+    +math(${
+      \frac{pq}{\ln q} = \overline{x}
+    });
+    +math(${
+      \frac{q-1}{\ln q} = \overline{x}
+    });
+    +pn{
+      ${r=\ln q}とおくと${r>0}で${\frac{e^r-1}{r} =\overline{x} }
+    }
+    +pn{
+      ${\overline{x}>1}である限りこの解は一意に存在する。
+    }
+    +pn{
+      さて、W関数で解くことを考えてみよう。${u=\frac{1}{\overline{x}}}とおく。${-s = r + u}とおけば
+      ${e^{-s-u} = -s\overline{x}} なので ${-ue^{-u} = se^s}
+    }
+    +pn{
+      これの${s = -u}でないほうの解を求めればいい。${-u> -1}なので${s=W_{-1}\paren{-ue^{-u}}}である。
+    }
+    +pn{
+      具体例として、${\overline{x} = \frac{215}{168}}であるときは、
+      ${s= -1.25601}であり、${r= -s-u = 0.47461}で${q=e^r=1.60739}なので${p=0.37788}となる。
+    }
+    +pn{
+      なお、${\app{E}{x} = \frac{-1}{\app{\ln}{1-p}}\frac{p}{1-p} } だそうなので、
+      ${n}が十分大きい時${p}のestimatorは${p}の真の値に近づく。
+    }
+
+    +pn{
+      https://dlmf.nist.gov/4.13 によれば、${\eta=\ln\frac{-1}{-ue^{-u}}= -\app{\ln}{ue^{-u}} = u - \ln u}とおくと
+      ${W_{-1}\paren{-ue^{-u}} \approx -\eta -\ln\eta - \frac{\ln\eta}{\eta}= -u + \ln u - \app{\ln}{ u - \ln u} -\frac{\app{\ln}{u - \ln u}}{u - \ln u} }
+    }
+
+  >
+>

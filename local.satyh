@@ -64,6 +64,8 @@ let-math \exp    = math-char MathPrefix `exp`
 let-math \mg    = math-char MathPrefix `mg`
 let-math \product = math-big-char MathOp `∏`
 
+let-math \overline m1 = ${#m1 \bar}
+
 let-math \prods m1 m2 =
   ${\upper{\lower{\product}{#m1}}{#m2}}
 
