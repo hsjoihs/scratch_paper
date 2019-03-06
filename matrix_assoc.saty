@@ -1,0 +1,21 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@import: local
+
+document (|
+  title = {行列の結合法則、代数的に};
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  +section{}<
+    +p{
+      ${A}が${a_{ij}}、${B}が${b_{jk}}、${C}が${c_{kl}}からなるとすると、
+      ${\paren{AB}C}の${il}要素は${\sum_k \paren{\sum_j a_{ij} b_{jk} }c_{kl} }、
+      ${A\paren{BC}}の${il}要素は${\sum_j a_{ij} \sum_k \paren{b_{jk}c_{kl} }}なので、分配法則使うと一致する
+    }
+  >
+>

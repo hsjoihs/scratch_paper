@@ -1,0 +1,77 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@import: local
+
+let-math \group-gen m1 m2 =
+  ${\angle-bracket{#m1 \| #m2}}
+let-math \Z = ${\math-style!(MathDoubleStruck){Z}}
+let-math \fA = ${\alpha^3}
+let-math \fB = ${\beta\alpha^{-2}}
+let-math \fC = ${\alpha\beta}
+let-math \fD = ${\alpha^2\beta\alpha^{-1}}
+in
+document (|
+  title = {自由群${F_4}から${F_2}への、とある準同型写像};
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  +section{問題}<
+    +p{
+      自由群${F_4 : \group-gen{A,B,C,D}{} } と ${F_2 : \group-gen{\alpha, \beta}{}} があり、
+      準同型写像 ${f : F_4 \arrow F_2} が 
+      ${\app{f}{A} = \fA}, 
+      ${\app{f}{B} = \fB}, 
+      ${\app{f}{C} = \fC}, 
+      ${\app{f}{D} = \fD} によって定まるとき、 
+    }
+    +listing{
+      * ${\app{f}{F_4}} は ${F_2} の正規部分群
+      * ${F_2 / \app{f}{F_4} \simeq \Z / 3\Z}
+    }
+    +pn{
+      であることを示せ。
+    }
+  >
+  +section{「${\app{f}{F_4}} は ${F_2} の正規部分群である」の略解}<
+    +p{
+      示すべきことは、${
+        \all n \in \app{f}{F_4}, \all g \in F_2, gng^{-1} \in \app{f}{F_4}
+      } である。ところで、
+      \align[
+        ${| \alpha \app{f}{A} \alpha^{-1} |=| \alpha \fA \alpha^{-1}  |=| \fA |=| \app{f}{A}|};
+        ${| \alpha \app{f}{B} \alpha^{-1} |=| \alpha \fB \alpha^{-1}  |=| \fC\paren{\fA}^{-1} |=| \app{f}{CA^{-1}} |};
+        ${| \alpha \app{f}{C} \alpha^{-1} |=| \alpha \fC \alpha^{-1}  |=| \fD |=| \app{f}{D} |};
+        ${| \alpha \app{f}{D} \alpha^{-1} |=| \alpha \fD \alpha^{-1}  |=| \fA\fB |=| \app{f}{AB} |};
+        ${| \beta \app{f}{A} \beta^{-1} |=| \beta \fA \beta^{-1}  |=| \fB\fA\paren{\fB}^{-1} |=| \app{f}{BAB^{-1}}|};
+        ${| \beta \app{f}{B} \beta^{-1} |=| \beta \fB \beta^{-1}  |=| \fB\fD\paren{\fA}^{-1}\paren{\fB}^{-1} |=| \app{f}{BDA^{-1}B^{-1}} |};
+        ${| \beta \app{f}{C} \beta^{-1} |=| \beta \fC \beta^{-1}  |=| \fB\fA |=| \app{f}{BA} |};
+        ${| \beta \app{f}{D} \beta^{-1} |=| \beta \fD \beta^{-1}  |=| \fB\fA\fC\paren{\fA}^{-1}\paren{\fB}^{-1}|=| \app{f}{BACA^{-1}B^{-1}} |};
+        ${| \alpha^{-1} \app{f}{A} \alpha |=| \alpha^{-1} \fA \alpha  |=| \fA |=| \app{f}{A}|};
+        ${| \alpha^{-1} \app{f}{B} \alpha |=| \alpha^{-1} \fB \alpha  |=| \paren{\fA}^{-1}\fD |=| \app{f}{A^{-1}D}|};
+        ${| \alpha^{-1} \app{f}{C} \alpha |=| \alpha^{-1} \fC \alpha  |=| \fB\fA |=| \app{f}{BA}|};
+        ${| \alpha^{-1} \app{f}{D} \alpha |=| \alpha^{-1} \fD \alpha  |=| \fC |=| \app{f}{C}|};
+        ${| \beta^{-1} \app{f}{A} \beta |=| \beta^{-1} \fA \beta  |=| \paren{\fC}^{-1}\fA\fC |=| \app{f}{C^{-1}AC}|};
+        ${| \beta^{-1} \app{f}{B} \beta |=| \beta^{-1} \fB \beta  |=| \paren{\fA}^{-1}\fC |=| \app{f}{A^{-1}C}|};
+        ${| \beta^{-1} \app{f}{C} \beta |=| \beta^{-1} \fC \beta  |=| \paren{\fC}^{-1}\fD\fC |=| \app{f}{C^{-1}DC}|};
+        ${| \beta^{-1} \app{f}{D} \beta |=| \beta^{-1} \fD \beta  |=| \paren{\fC}^{-1}\fA\fB\fC |=| \app{f}{C^{-1}ABC}|};
+      ];%
+      なので、${F_2}の任意の要素が${\alpha}・${\beta}・${\alpha^{-1}}・${\beta^{-1}}の積で書ける以上、
+    }
+    +math(${
+        \all n \in \app{f}{F_4}, \all g \in F_2, gng^{-1} \in \app{f}{F_4}
+      });
+    +pn{
+      は成り立つ。
+    }
+
+  >
+  +section{「${F_2 / \app{f}{F_4} \simeq \Z / 3\Z}」の略解}<
+    +p{
+      まだ解いてない。
+    }
+  >
+>
