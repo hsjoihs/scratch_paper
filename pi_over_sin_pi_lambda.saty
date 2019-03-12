@@ -1,0 +1,328 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@import: local
+
+document (|
+  title = {
+    ${
+      \int _0^\infty \frac{x^{\lambda - 1}}{1+x} dx = 
+      \frac{\pi}{\sin\pi\lambda} 
+    } ${\paren{0<\lambda <1}}
+  };
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  +section{複素解析でチャチャッと答えを求める}<
+    +p{
+      「実軸の真上→無限の半径でグルっと周回→実軸の真下」というコースで積分。
+      \eqn(${
+        \int _0^\infty \frac{x^{\lambda - 1}}{1+x} dx + 
+        \int _\infty^0 \frac{ x^{\lambda - 1} e^{2\pi i\paren{\lambda - 1}} }{1+x} dx
+        = 2\pi i \app{\Res}{-1, \frac{e^{\paren{\lambda - 1}\log z}}{1+z}}
+      });%
+      \eqn(${
+        \paren{
+          1 - e^{2\pi i\paren{\lambda - 1}}
+        }\int _0^\infty \frac{x^{\lambda - 1}}{1+x} dx 
+        = 2\pi i \limto{z}{-1}  e^{\paren{\lambda - 1}\log z}
+      });%
+      \eqn(${
+        \int _0^\infty \frac{x^{\lambda - 1}}{1+x} dx 
+        = 
+        \frac{
+          2\pi i e^{\paren{\lambda - 1}\pi i } 
+        }{
+          1 - e^{2\pi i\paren{\lambda - 1}}
+        }  
+        = 
+        \frac{
+          2\pi i 
+        }{
+          e^{-\paren{\lambda - 1}\pi i }  - e^{\pi i\paren{\lambda - 1}}
+        }
+        = 
+        \frac{
+          2\pi i 
+        }{
+          - e^{-\lambda \pi i }  + e^{\pi i\lambda}
+        } 
+        = 
+        \frac{
+          \pi  
+        }{
+          \sin \pi\lambda
+        } 
+      });%
+      
+    }
+  >
+  +section{分割する}<
+    +p{
+      \align[
+        ${
+          |\int _0^\infty \frac{x^{\lambda - 1}}{1+x} dx |= 
+          \int _0^1 \frac{x^{\lambda - 1}}{1+x} dx + 
+          \int _1^\infty \frac{x^{\lambda - 1}}{1+x} dx  
+          |= |
+          \int _0^1 \frac{x^{\lambda - 1}}{1+x} dx + 
+          \int _1^0 \frac{u^{-\lambda + 1}}{1+u^{-1}} \paren{-u^{-2}}du
+        |};
+        ${| |= 
+          \int _0^1 \frac{x^{\lambda - 1}}{1+x} dx + 
+          \int _0^1 \frac{u^{-\lambda - 1}}{1+u^{-1}} du
+          |=|
+          \int _0^1 \frac{x^{\lambda - 1}}{1+x} dx + 
+          \int _0^1 \frac{u^{-\lambda}}{u+1} du
+
+        |}
+      ];
+      ここで ${\app{F}{\lambda} = \int _0^1 \frac{x^{\lambda - 1}}{1+x} dx } とすると
+      ${\int _0^\infty \frac{x^{\lambda - 1}}{1+x} dx = \app{F}{\lambda} + \app{F}{1 - \lambda} }
+    }
+  >
+  +section{ 
+    ${\app{F}{\lambda} = \int _0^1 \frac{x^{\lambda - 1}}{1+x} dx  }
+    について調べる
+  }<
+    +p{
+      プロットしてみると${\lambda > 0}で収束するっぽさがある。
+      ${
+        \frac{
+          \pi  
+        }{
+          \sin \pi\lambda
+        }
+      } の特異点を二つに分離できているっぽさある。具体的に調べてみよう。
+    }
+    +subsection{${\lambda}が整数のとき} <
+      +p{
+        \align[${|
+          \int _0^1 \frac{x^{\lambda - 1}}{1+x} dx |= 
+          \int _0^1 \frac{x^{\lambda - 1} + \paren{-1}^{\lambda}}{1+x} dx 
+          - \paren{-1}^{\lambda} \int _0^1 \frac{1}{1+x} dx
+        |};${| |= 
+          \int _0^1 \paren{x^{\lambda - 2} - x^{\lambda - 3} + ... +  \paren{-1}^{\lambda} } dx 
+          - \paren{-1}^{\lambda} \int _0^1 \frac{1}{1+x} dx
+        |};${| |= 
+          \paren{
+            \frac{1}{\lambda - 1} - \frac{1}{\lambda - 2} + ... +  \paren{-1}^{\lambda} 
+          }
+          - \paren{-1}^{\lambda} \ln 2
+        |};${| |= 
+           \paren{-1}^{\lambda} \paren{
+             1 - \frac{1}{2} + \frac{1}{3} - ... + \paren{-1}^{\lambda}\frac{1}{\lambda - 1}
+          }
+          - \paren{-1}^{\lambda} \sums{k=1}{\infty} \frac{\paren{-1}^{k-1}}{k}
+        |};${| |= 
+          \paren{-1}^{\lambda} \sums{k=1}{\lambda - 1} \frac{\paren{-1}^{k-1}}{k}
+          - \paren{-1}^{\lambda} \sums{k=1}{\infty} \frac{\paren{-1}^{k-1}}{k}
+        |};${| |= 
+          - \paren{-1}^{\lambda} \sums{k=\lambda}{\infty} \frac{\paren{-1}^{k-1}}{k}
+        |};${| |= 
+          - \paren{-1}^{\lambda} \sums{l=0}{\infty} \frac{\paren{-1}^{l+\lambda - 1}}{l+\lambda}
+          = 
+           \sums{l=0}{\infty} \frac{\paren{-1}^{l}}{l+\lambda}
+        |};
+        ];%
+      }
+    >
+    +subsection{${\lambda}が半整数のとき${\paren{\lambda = n + \frac{1}{2}}}} <
+      +p{
+        \align[${|
+          \int _0^1 \frac{x^{n - \frac{1}{2}}}{1+x} dx |= 
+          \int _0^1 \frac{u^{2n - 1}}{1+u^2} 2udu = 
+          2\int _0^1 \frac{u^{2n}}{1+u^2} du  
+        |};${| |=
+          2\sqbracket{
+            \int_0^1 \paren{u^{2n-2} - u^{2n-4}+ ... + \paren{-1}^{n-1}} du 
+            + \paren{-1}^{n} \int_0^1 \frac{1}{1+u^2} du
+          }
+        |};${| |=
+          2\paren{
+            \frac{1}{2n-1} - \frac{1}{2n-3} + \frac{1}{2n-5} - ...  \paren{-1}^{n-1}\frac{1}{1}
+          } 
+          + 2\paren{-1}^{n} \frac{\pi}{4}
+        |};${| |=
+          2\paren{-1}^{n-1}\paren{
+            \frac{1}{1} - \frac{1}{3} + \frac{1}{5} - ... + \paren{-1}^{n-1} \frac{1}{2n-1}
+          } 
+          + 2\paren{-1}^{n} \frac{\pi}{4}
+        |};${| |=
+          2\paren{-1}^{n-1} \sums{k=1}{n}\frac{\paren{-1}^{k-1}}{2k-1} 
+          + 2\paren{-1}^{n} \sums{k=1}{\infty}\frac{\paren{-1}^{k-1}}{2k-1} 
+          = 2\paren{-1}^{n} \sums{k=n+1}{\infty}\frac{\paren{-1}^{k-1}}{2k-1} 
+        |};${| |
+          = 2\paren{-1}^{n} \sums{l=0}{\infty}\frac{\paren{-1}^{l+n+1-1}}{2\paren{l+n+1}-1} 
+          = \sums{l=0}{\infty}\frac{\paren{-1}^{l}}{l+\lambda} 
+        |}
+        ];
+      }
+    >
+    +subsection{ということは}<
+      +p{
+        一般に ${\app{F}{\lambda} = \sums{l=0}{\infty}\frac{\paren{-1}^{l}}{l+\lambda} }
+        が成り立つのではなかろうか。そんな気がする。ついでにこの形だと解析接続できそう。つよい。
+      }
+      +pn{
+        冷静に考えてみたらかなり自然だった。端点以外では等比級数の和の公式が使えるので、
+        \align[${|
+          \int _0^1 \frac{x^{\lambda - 1}}{1+x} dx |= 
+          \int _0^1 \sums{l=0}{\infty} \paren{-x}^{l} x^{\lambda - 1} dx  
+        |};${| |=
+          \int _0^1 \sums{l=0}{\infty} \paren{-1}^{l} x^{l + \lambda - 1} dx  
+        |};${| |=
+          \sums{l=0}{\infty} \int _0^1  \paren{-1}^{l} x^{l + \lambda - 1} dx  
+        |};${| |=
+          \sums{l=0}{\infty}  \frac{\paren{-1}^{l}}{l + \lambda}
+        |};
+        ];
+        が期待される。もちろん総和と積分の入れ替えに条件が必要だし、
+        ${\lambda}が${0}以下だと${x = 0}の端点が消えてくれないからこそこれは
+        ${\app{F}{\lambda} }の一般化になるのだなぁ。
+      }
+    >
+    +subsection{ディガンマ関数}<
+      +p{
+        ディガンマ関数 ${\app{\psi}{z} = \frac{\frac{d}{dx}\app{\Gamma}{x}}{\app{\Gamma}{x}} } は
+        ${
+          \app{\psi}{z} = \limto{n}{\infty}\sqbracket{
+            \ln n - \frac{1}{z} - \sums{k=1}{n}\frac{1}{z+k}
+          }
+        }と書けることが知られているらしいので
+        \align[${|
+          \app{\psi}{z + \frac{1}{2}} - \app{\psi}{z} |= \limto{n}{\infty}\sqbracket{
+            \ln n - \frac{1}{z + \frac{1}{2}} - \sums{k=1}{n}\frac{1}{z+ \frac{1}{2}+k}
+          } - \limto{n}{\infty}\sqbracket{
+            \ln n - \frac{1}{z} - \sums{k=1}{n}\frac{1}{z+k}
+          }
+        |};${| |= \limto{n}{\infty}\sqbracket{
+           
+            - \sums{k=0}{n}\frac{1}{z+ \frac{1}{2}+k}
+          
+            + \sums{k=0}{n}\frac{1}{z+k}
+          }
+        |};${| |= \limto{n}{\infty}\sqbracket{
+           
+            \sums{l=1, l \in 2 \math-style!(MathDoubleStruck){Z} + 1}{2n+1}\frac{\paren{-1}^{l}}{z+ \frac{l}{2}}
+          
+            + \sums{l=0, l \in 2 \math-style!(MathDoubleStruck){Z}}{2n}\frac{\paren{-1}^{l}}{z+\frac{l}{2}}
+          }
+        |};${| |= \limto{n}{\infty}\sqbracket{
+          \sums{l=0}{2n+1}\frac{\paren{-1}^{l}}{z+\frac{l}{2}}
+          } 
+          = 2 \sums{l=0}{\infty}\frac{\paren{-1}^{l}}{l+2z}
+          = 2 \app{F}{2z}
+          
+        |};
+        ];
+        つまり
+        ${
+          \app{F}{\lambda} = 
+          \frac{1}{2}\paren{
+            \app{\psi}{\frac{\lambda+1}{2}} - \app{\psi}{\frac{\lambda}{2}}
+          }
+        }
+        であることが期待される。
+      }
+      +pn{
+        この期待の下だと ${
+          \app{F}{\lambda} + \app{F}{1-\lambda} = 
+          \frac{1}{2}\paren{
+            \app{\psi}{\frac{\lambda+1}{2}} - \app{\psi}{\frac{\lambda}{2}} +
+            \app{\psi}{\frac{2-\lambda}{2}} - \app{\psi}{\frac{1-\lambda}{2}}
+          }
+        }
+      }
+      +pn{
+        ここで${\app{\psi}{1-z} - \app{\psi}{z} = \pi \cot \pi z} 
+        % と  ${\app{\psi}{z} = \app{\psi}{z+1} - \frac{1}{z} }
+        が知られているので
+        \align[${|
+          \app{F}{\lambda} + \app{F}{1-\lambda} |= 
+          \frac{1}{2}\paren{
+            \app{\psi}{\frac{\lambda+1}{2}} 
+            - \app{\psi}{\frac{1-\lambda}{2}} - \app{\psi}{\frac{\lambda}{2}} +
+            \app{\psi}{\frac{2-\lambda}{2}} 
+          }
+        |};${| |= 
+          \frac{1}{2}\paren{
+            \pi \cot  \frac{\pi\paren{1-\lambda}}{2} - \app{\psi}{\frac{\lambda}{2}} +
+            \app{\psi}{\frac{2-\lambda}{2}}
+          }
+        |};${| |= 
+          \frac{1}{2}\paren{
+            \frac{
+              \pi \cos  \paren{
+                \frac{\pi}{2} -
+                \frac{\pi\lambda}{2}
+              }
+            }{
+              \sin  \paren{
+                \frac{\pi}{2} -
+                \frac{\pi\lambda}{2}
+              }
+            }
+            
+            
+            + 
+            \frac{
+              \pi \cos \frac{\pi\lambda}{2}
+            }{
+              \sin \frac{\pi\lambda}{2}
+            }
+          }
+        |};${| |= 
+          \frac{1}{2}\paren{
+            \frac{
+              \pi \sin \frac{\pi\lambda}{2}
+            }{
+              \cos \frac{\pi\lambda}{2}
+            }
+            + 
+            \frac{
+              \pi \cos \frac{\pi\lambda}{2}
+            }{
+              \sin \frac{\pi\lambda}{2}
+            }
+          }
+        |};${| |= 
+          \frac{1}{2}\paren{
+            \frac{
+              \pi \sin^2 \frac{\pi\lambda}{2}
+            }{
+              \sin \frac{\pi\lambda}{2}\cos \frac{\pi\lambda}{2}
+            }
+            + 
+            \frac{
+              \pi \cos^2 \frac{\pi\lambda}{2}
+            }{
+              \cos \frac{\pi\lambda}{2}\sin \frac{\pi\lambda}{2}
+            }
+            
+          }
+        |};${| |= 
+        
+          \frac{
+            \pi
+          }{
+            2\sin \frac{\pi\lambda}{2}\cos \frac{\pi\lambda}{2}
+          }= 
+        
+          \frac{
+            \pi
+          }{
+            \sin \pi\lambda
+          }
+            
+        |}
+        ];
+
+        なるほどなぁ。
+      }
+    >
+  >
+>    

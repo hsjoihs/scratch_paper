@@ -64,6 +64,7 @@ let-math \sinh    = math-char MathPrefix `sinh`
 let-math \cosh    = math-char MathPrefix `cosh`
 let-math \arsinh    = math-char MathPrefix `arsinh`
 let-math \exp    = math-char MathPrefix `exp`
+let-math \Res    = math-char MathPrefix `Res`
 let-math \mg    = math-char MathPrefix `mg`
 let-math \product = math-big-char MathOp `∏`
 
