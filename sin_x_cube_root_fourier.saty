@@ -1,0 +1,32 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@import: local
+
+document (|
+  title = {${\paren{\sin x}^{1/3}} のフーリエ展開};
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  +section{予想}<
+    +math(${
+      \paren{\sin x}^{1/3} = \sum_{n=1}^{\infty} \frac{2^{2/3} \app{\Gamma}{n-\frac{2}{3}}}{3 \app{\Gamma}{\frac{2}{3}} \app{\Gamma}{n+\frac{2}{3} }} \app{\sin}{\paren{2n-1}x}  
+    });
+  >
+  +section{結果}<
+    +p{
+      いろいろやった結果、${\paren{\sin x}^{b}} をフーリエ級数展開すると、
+      その係数は ${
+        \frac{
+          \app{\Gamma}{\frac{b}{2}}
+        }{
+          \sqrt{\pi}\app{\Gamma}{\frac{b+1}{2}}
+        }
+      } の有理数倍となることがわかったので満足。
+
+    }
+  >
+>
