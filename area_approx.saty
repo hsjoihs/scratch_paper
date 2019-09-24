@@ -1,0 +1,66 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@import: local
+
+document (|
+  title = {「夏侯陽算経」にある四角形の面積の近似};
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  +section{}<
+    +p{
+      「夏侯陽算経」という文章に、いびつだがだいたい長方形っぽい四角形は「南北の辺の長さの平均と、東西の辺の長さの平均の積が面積となる」という記載があるらしい（「スキルアップのための短期攻略『九章算術』―もう算木は怖くない―よくわかる算術(楽史舎)より。）。もちろんこれは近似値だが、簡便に求まるのは事実であるしどのくらいの精度が出るのか気になったので調べてみた。
+    }
+    +pn{
+      北の辺を ${a}、西の辺を ${b}、南の辺を ${c}、東の辺を ${d} とする。「買地玉券」というので出てきてる例は${\paren{a,b,c,d} = \paren{65,68,94,79}}だそうだ。このような四角形の面積が最大になるのは四角形が円に内接するときであり、そのときの面積は ${s=\frac{a+b+c+d}{2}} としたとき ${S_{max}=\sqrt{\paren{s-a}\paren{s-b}\paren{s-c}\paren{s-d}}} であることが知られている（ブラーマグプタの公式と、その一般化であるブレートシュナイダーの公式から従う。）（これらの知識なしで導出する作業ゲーもやったので別文書にまとめておく。）
+    }
+    +pn{
+      さて、「南北の辺の長さの平均」を${w}、「東西の辺の長さの平均」を${h}とすると当然${w = \frac{a+c}{2}}、${h=\frac{b+d}{2}}であり、したがって${s=w+h}である。ここで
+    }
+    +align [
+      [${a = w + \epsilon,}; ${c=w-\epsilon}];
+      [${b = h + \delta, }; ${d=h-\delta}];
+    ];
+    +pn{
+      となるような${\epsilon}と${\delta}を取っておく。「買地玉券」の例なら
+      ${w = 79.5, h = 73.5, \epsilon = -14.5, \delta = -5.5} となる。
+    }
+    +pn{
+      ここで、
+    }
+
+    +math(${\paren{s-a}\paren{s-c} = \paren{w+h-w-\epsilon}\paren{w+h-w+\epsilon}});
+    +math(${= \paren{h-\epsilon}\paren{h+\epsilon} =  h^2-\epsilon^2});
+
+    +pn{
+      同様に ${\paren{s-b}\paren{s-d}  = w^2-\delta^2} なのだから、
+    }
+
+    +math(${S_{max}=\sqrt{\paren{s-a}\paren{s-b}\paren{s-c}\paren{s-d}}=\sqrt{\paren{h^2-\epsilon^2}\paren{w^2-\delta^2}}});
+    
+    +pn{
+      ということで、推定値${hw}は常に四角形の面積より大きい。
+    }
+    +math(${
+      S_{max}=hw\sqrt{\paren{1-\frac{\epsilon^2}{h^2} }\paren{1-\frac{\delta^2}{w^2} }} =hw\paren{1-\frac{\epsilon^2}{2h^2}-\frac{\delta^2}{2w^2} + \cdots } }
+    );
+    +pn{
+      相対誤差は${\frac{\epsilon}{h}}や${\frac{\delta}{w}}の二乗オーダーであり、結構いい近似であることがわかる。
+    }
+    +pn{
+      とはいえ、これは最大値での話である。そうでない場合はどうなのだろう。ブレートシュナイダーの公式より、${t}を対角の和の半分としたとき
+    }
+
+    +math(${
+      S=\sqrt{\paren{h^2-\epsilon^2}\paren{w^2-\delta^2}-\paren{w^2-\epsilon^2}\paren{h^2-\delta^2}\cos^2 t}
+    });
+
+    +pn{
+      ということで、${\cos^2 t} は 0次で効いてくるので、偏平な四角形に対しては悪い近似になるなぁと分かる。
+    }
+  >
+>
