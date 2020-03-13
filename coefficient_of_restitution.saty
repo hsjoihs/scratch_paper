@@ -166,6 +166,10 @@ document (|
     );
 
     +pn{
+      （ただし${U\le 0}の場合は ${\app{f}{t} = 0} とする）
+    }
+
+    +pn{
      \url(`https://www.desmos.com/calculator/wcew1lqlas`); で試すことができる。
     }
 
