@@ -1,0 +1,200 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@require: annot
+@import: local
+
+let-inline \url url = {\href(url)(embed-string url);} in
+let-math \fract = math-char MathOp `fract` in
+document (|
+  title = {反発係数};
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  +section{概要}<
+    +p{
+      ユムルさん（Twitter: \@Yumuru_n）がシェーダーを書いていたところ、「ある反発係数を持つ平面の上で跳ねていく物体の高さを、
+      時間の関数でサクッと書きたい」と言われた。
+      まあもちろん条件分岐をすればいいのだが、せっかくなのでなんか面白い書き方ができないかなとなった。
+    }
+  >
+  +section{具体的な式}<
+    +p{
+      ${t=0}にて高さ${0}から初速度${v}で打ち上げ、重力加速度は${g}とする。反発係数は${E}とする。このとき、一回上がって下がるまでの式は
+      初速度${v}での打ち上げなので
+      ${0\le t\le\frac{2v}{g}}のもとでの${vt-\frac{1}{2}gt^{2}}である。二回目は初速度が${Ev}になっているのと${t=\frac{2v}{g}}から始まるのとで、
+      ${
+        \frac{2v}{g} \le t \le \frac{2v\paren{1+E}}{g}
+      } のもとでの
+      ${
+        Ev\paren{t-\frac{2v}{g}}-\frac{1}{2}g\paren{t-\frac{2v}{g}}^{2}
+      } である。
+      ということで、求める関数を${f}とするならば、
+    }
+    
+    +math(${
+    \app{f}{t} = \cases![
+      (${
+        vt-\frac{1}{2}gt^{2}
+      }, {${\paren{
+        0\le t\le\frac{2v}{g}
+      }}});
+      (${
+        Ev\paren{t-\frac{2v}{g}}-\frac{1}{2}g\paren{t-\frac{2v}{g}}^{2}
+      }, {${\paren{
+        \frac{2v}{g} \le t \le \frac{2v\paren{1+E}}{g}
+      }}});
+      (${
+        E^{2}v\paren{x-\frac{2\paren{v+Ev}}{g}}-\frac{1}{2}g\paren{x-\frac{2\paren{v+Ev}}{g}}^2
+      }, {${\paren{
+        \frac{2v\paren{1+E}}{g}\le t\le \frac{2v\paren{1+E+E^{2}}}{g}
+      }}});
+      (${
+        \cdots
+      }, {});
+    ]
+    });
+    
+    +p{
+      となる。
+      \figure ?:(`fig:bounce1`){跳ねていく様子}<
+        +image-frame{\insert-image(10cm)(`bounce1.jpg`);}
+      >
+    }
+    +pn{
+      一般に${
+        \frac{2v\paren{1+E+\cdots+E^{n-1}}}{g}\le t\le \frac{2v\paren{1+E+\cdots+E^{n}}}{g}
+      } という範囲、つまり ${
+        \frac{2v\paren{1-E^{n}}}{g\paren{1-E}}\le t\le \frac{2v\paren{1-E^{n+1}}}{g\paren{1-E}}
+      } という範囲で話が進んでいることを考えると、 ${t \equiv \frac{2v\paren{1-E^{u}}}{g\paren{1-E}}} となる変数${u}を
+      導入するのがよさそうということになる。
+    }
+    +pn{
+      一回上がって下がるまでの式は
+      ${0\le t\le\frac{2v}{g}}のもとでの${vt-\frac{1}{2}gt^{2}}であるので、${u}に変換すると${0\le u \le 1}のもとでの
+    }
+    +math(${
+      v\frac{2v\paren{1-E^{u}}}{g\paren{1-E}}-\frac{1}{2}g\paren{\frac{2v\paren{1-E^{u}}}{g\paren{1-E}}}^{2}
+      = \frac{2v^2\paren{1-E^{u}}}{g\paren{1-E}^2}\paren{\paren{1-E}-\paren{1-E^{u}}}
+      = \frac{2v^2\paren{1-E^{u}}}{g\paren{1-E}^2}\paren{-E+E^{u}}
+    });
+    +pn{
+      同様に、二回目は${1\le u \le 2}のもとであって、
+    }
+    
+    +math(${
+      Ev\paren{\frac{2v\paren{1-E^{u}}}{g\paren{1-E}}-\frac{2v}{g}}-\frac{1}{2}g\paren{\frac{2v\paren{1-E^{u}}}{g\paren{1-E}}-\frac{2v}{g}}^{2}
+      = \frac{2v^2}{g}\paren{\frac{1-E^{u}}{1-E}-1}\paren {
+        E-\paren{\frac{1-E^{u}}{1-E}-1}
+      }
+    });
+    +math(${
+    = \frac{2v^2}{g}\paren{\frac{E-E^{u}}{1-E}}\paren { E-\frac{E-E^{u}}{1-E} }
+    = E^2\frac{2v^2}{g}\paren{\frac{1-E^{u-1}}{1-E}}\paren { 1-\frac{1-E^{u-1}}{1-E} }
+    = E^2\frac{2v^2\paren{1-E^{u-1}}}{g\paren{1-E}^2}\paren {-E+E^{u-1} }
+    });
+
+    +pn{
+      ということで、${\app{f}{t} = \app{f}{\frac{2v\paren{1-E^{u}}}{g\paren{1-E}}} } というのは
+      同じ形の山が毎回${E^2}倍されて繰り返される形を成すというのが分かる。
+      ここで${E^2}倍というのは非弾性衝突によるエネルギーの損失にそのまま対応することに注意。
+
+      \figure ?:(`fig:bounce1`){変数変換して横軸${u}でプロットしたもの}<
+        +image-frame{\insert-image(10cm)(`bounce2.jpg`);}
+      >
+    }
+
+    +pn{
+      ゆえに、全体を${E^{-2u}}倍してやることで減衰を補填してやれば、これは周期関数になるはずである。つまり、
+      ${E^{-2u}\app{f}{t} = E^{-2u}\app{f}{\frac{2v\paren{1-E^{u}}}{g\paren{1-E}}} } は 
+      ${u}に関する周期${1}の周期関数であるということだ。これを${\app{K}{u}} と呼ぶことにする。
+    }
+
+    +pn{
+      周期${1}の周期関数であるということの利点として、${0\le u \le 1}においての${\app{K}{u}}（これを${\app{K_{01}}{u}} と呼ぶことにする）
+      さえ求めてしまえば、${u}の小数部分（GLSLだとfract(u)、HLSLだとfrac(u)）を求めて${K_{01}}の引数に渡すことで${\app{K}{u}}が計算できる。
+      つまりあとは${\app{K_{01}}{u}}を求めてしまえばよいのだ。
+    }
+
+    +pn{
+      ${\app{K_{01}}{u}}とは${0\le u \le 1}においての
+      ${E^{-2u}\app{f}{t} }なので、先ほど求めた結果より
+    }
+
+    +math(${
+      \app{K_{01}}{u} = E^{-2u}\frac{2v^2\paren{1-E^{u}}}{g\paren{1-E}^2}\paren{-E+E^{u}}
+      = \frac{2v^2}{g}\frac{\paren{E^{-u}-1}}{\paren{1-E}^2}\paren{1-E^{1-u}}
+    });
+
+    +pn{
+      せっかくなので ${\frac{2v^2}{g}}を分離してやって ${\app{K_{01}}{u} =\frac{2v^2}{g}\app{k_{01}}{E,u}} と書いてやろう。これにより
+      ${
+        \app{f}{t} = E^{2u}\app{K}{u} = E^{2u}\app{K_{01}}{ \app{\fract}{u} }  
+        = E^{2u}\frac{2v^2}{g}\app{k_{01}}{ E, \app{\fract}{u} }  
+      }
+    }
+    +pn{
+      ${U = E^{u}}とすれば ${
+        \app{f}{t} = U^{2}\frac{2v^2}{g}\app{k_{01}}{ E, \app{\fract}{\frac{\ln U}{\ln E} } } 
+      }
+    }
+    +pn{
+      ここで ${t = \frac{2v\paren{1-U}}{g\paren{1-E}}} を ${U}について解いて ${
+         U = 1- \frac{gt\paren{1-E}}{2v} 
+      } である。
+    }
+  >
+  +section{結論}<
+    +math(${
+      \app{k_{01}}{E,u} = \frac{\paren{E^{-u}-1}}{\paren{1-E}^2}\paren{1-E^{1-u}}
+    });
+    +math(${
+      U = 1- \frac{gt\paren{1-E}}{2v}
+    });
+
+    +pn{
+      とすると
+    }
+
+    +math(
+      ${
+        \app{f}{t} = \frac{2v^2}{g} U^{2}\app{k_{01}}{ E, \app{\fract}{\frac{\ln U}{\ln E} } } 
+      }
+    );
+
+    +pn{
+     \url(`https://www.desmos.com/calculator/wcew1lqlas`); で試すことができる。
+    }
+
+  >
+  +section{おまけ}<
+    +math(${
+      \app{k_{01}}{E,u} = \frac{\paren{E^{-u}-1}}{\paren{1-E}^2}\paren{1-E^{1-u}}
+    });
+    +pn{
+      について調べる。これは${x \equiv E^{-u}}に関しての二次関数であり、${x = \frac{E+1}{2E}} で最大値${\frac{1}{4E}}を取る。
+      へー最大値こんな簡単な形になるのか。
+    }
+    +pn{
+      ということで、${\paren{u,k} = \paren{0,0}, \paren{1,0}}を端点に持ち、${
+        \paren{u,k} = \paren{\frac{\ln\paren{\frac{2E}{E+1}}}{\ln E}, \frac{1}{4E}}
+      } を極大値として持つ関数である。
+    }
+    +pn{
+      ${\frac{\ln\paren{\frac{2E}{E+1}}}{\ln E}} を ${E=1} 中心に展開すると ${
+        \frac{1}{2}+\frac{1}{8}\paren{1-E}+\frac{1}{16}\paren{1-E}^{2}+\frac{7}{192}\paren{1-E}^{3}+\cdots
+      }
+      という感じで、${E}が${1}から離れていくにつれだんだん${\frac{1}{2}}から逸れていく様子が分かる。
+    }
+    +pn{
+      端点での微分係数は${u=0}で${\frac{-\ln E}{1-E}}であって${u=1}で${\frac{\ln E}{E\paren{1-E}}}。
+      ${u\paren{u-1}\paren{ax+b}}で最小二乗近似することも一瞬考えたがどう考えても計算がかったるいのでやらない。
+      代わりにそれぞれの指数関数をテイラー3次まで展開すると${E\ge\frac{1}{4}}ぐらいまではかなりよいのでそれで式変形。
+      でも変形途中で4次以上の項を落とすと精度が落ちる……うんまあ近似しなくていいっしょ（あきらめ）
+    }
+   
+  >
+>
