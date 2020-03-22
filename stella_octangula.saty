@@ -1,0 +1,375 @@
+@require: stdjabook
+@require: code
+@require: itemize
+@require: tabular
+@require: math
+@require: annot
+@import: local
+
+let matrix-body mss = let center ctx m = inline-fil ++ embed-math ctx m ++ inline-fil in
+    let body = text-in-math MathInner (fun ctx -> (
+      let size = get-font-size ctx in
+      let pads-normal = (0pt, 0pt, size *' 0.25, size *' 0.25) in
+      let pads-top = (0pt, 0pt, 0pt, size *' 0.25) in
+      let pads-bottom = (0pt, 0pt, size *' 0.25, 0pt) in
+      let pads-single = (0pt, 0pt, 0pt, 0pt) in
+      let cell-of-m pads m = NormalCell(pads, inline-skip size ++ center ctx m) in
+      let cells-of-ms pads ms =
+        (match ms with
+         | [] -> []
+         | m :: ms ->
+           (let leftmost = NormalCell(pads, center ctx m) in
+            let rest = List.map (cell-of-m pads) ms in
+            leftmost :: rest))
+      in
+      let-rec cellss-of-mss-tail mss =
+        (match mss with
+         | [] -> []
+         | ms :: [] -> [cells-of-ms pads-bottom ms]
+         | ms :: mss -> (cells-of-ms pads-normal ms) :: (cellss-of-mss-tail mss))
+      in
+      let cellss =
+        (match mss with
+         | [] -> []
+         | ms :: [] -> [cells-of-ms pads-single ms]
+         | ms :: mss -> (cells-of-ms pads-top ms) :: (cellss-of-mss-tail mss))
+      in
+      let grf = fun _ _ -> [] in
+      let ib = tabular cellss grf in
+      let (_, height, depth) = get-natural-metrics ib in
+      let hgtaxis = get-axis-height ctx in
+      let rising = hgtaxis -' (height +' depth) *' 0.5 in
+      raise-inline rising ib)) 
+    in body in
+let-math \matrix mss = math-paren Math.paren-left Math.paren-right (matrix-body mss) in
+let-math \matrix-body mss = matrix-body mss in
+document (|
+  title = {星型八面体を任意の平面で切る};
+  author = {hsjoihs};
+  show-title = true;
+  show-toc = false;
+|) '<
+  +section{問題}<
+    +p{
+      1辺の長さが${2}である立方体を考える。この立方体の8つの頂点のうち隣り合わない4頂点を結んで得られる正四面体と、
+      残りの4頂点を結んで得られる正四面体との和集合を考える。これは星型八面体 (stella octangula) と呼ばれる立体になるが、
+      これを任意の平面で切ったときの断面積を求めよ。
+    }
+    +p{
+      \figure ?:(`fig:stella`){星型八面体 (stella octangula)}<
+        +image-frame{\insert-image(10cm)(`Stella_octangula.jpg`);}
+      >
+    }
+  >
+  +section{座標設定}<
+    +p{
+      問題文のシンプルさに反しておそろしく凶悪な問題である。我々には3次元立体の直観など生えていないのだなぁということを思い知らせてくれる。
+    }
+    +pn{
+      なにはともあれ、座標を設定してパラメータをとって数式で殴るところから始める。
+      立方体の頂点を${\paren{X,Y,Z} = \paren{\pm 1, \pm 1, \pm 1}} とすれば、片方の正四面体は
+    }
+    +math(${
+      X+Y+Z \ge -1 \land X-Y-Z \ge -1 \land -X+Y-Z \ge -1 \land -X-Y+Z \ge -1
+    });
+    +pn{
+      を満たす点の集合であって、もう片方が
+    }
+    +math(${
+      X+Y-Z \ge -1 \land X-Y+Z \ge -1 \land -X+Y+Z \ge -1 \land -X-Y-Z \ge -1
+    });
+    +pn{
+      を満たす点の集合である。切る平面の法線ベクトルのひとつを${\paren{\sin T \cos P, \sin T \sin P, \cos T}}
+      としてやると、平面と原点との符号付き距離を${z_0}としたとき${X\sin T \cos P + Y \sin T \sin P + Z \cos T = z_0}が平面の式になる。
+    }
+    +pn{
+      ここで
+      ${\matrix![
+          [${\sin T \cos P};];
+          [${\sin T \sin P};];
+          [${\cos T};];
+        ]
+      }, 
+      ${\matrix![
+          [${-\cos T \cos P};];
+          [${-\cos T \sin P};];
+          [${\sin T};];
+        ]
+      }, 
+      ${\matrix![
+          [${\sin P};];
+          [${-\cos P};];
+          [${0};];
+        ]
+      }が正規直交基底を成すことから、
+    }
+    +math(${
+      \matrix![
+          [${x};];
+          [${y};];
+          [${z};];
+      ] = \matrix![
+        [${-\cos T \cos P}; ${-\cos T \sin P}; ${\sin T};];
+        [${\sin P};         ${-\cos P};        ${0};];
+        [${\sin T \cos P};  ${\sin T \sin P};  ${\cos T};];
+      ] \matrix![
+          [${X};];
+          [${Y};];
+          [${Z};];
+      ]
+    });
+    +pn{
+      という座標系でものごとを考えれば、切断平面の式が${z=z_0}であり扱いやすくなる。
+    }
+    +pn{
+      直交行列であるから逆変換を求めるのは簡単であり、
+    }
+    +math(${
+      \matrix![
+          [${X};];
+          [${Y};];
+          [${Z};];
+      ]= \matrix![
+        [${-\cos T \cos P}; ${\sin P};  ${\sin T \cos P}; ];
+        [${-\cos T \sin P}; ${-\cos P}; ${\sin T \sin P}; ];
+        [${\sin T};         ${0};       ${\cos T};        ];
+      ] \matrix![
+          [${x};];
+          [${y};];
+          [${z};];
+      ]
+    });
+    +pn{
+      ということで、正四面体に属する条件を${xyz}座標系で書き直して${z=z_0}と固定することで断面を${xy}平面上に得ることができる。
+    }
+  >
+  +section{切る}<
+    +p{
+      まずは片方の正四面体
+    }
+    +math(${
+      X+Y+Z \ge -1 \land X-Y-Z \ge -1 \land -X+Y-Z \ge -1 \land -X-Y+Z \ge -1
+    });
+    +pn{
+      を扱う。そのためには頂点候補が要る。それぞれの不等号を等号に変えて得られる条件を${ppp, pnn, npn, nnp}と書くことにすると、
+      全然難しくはないがやたら手間のかかる計算により、
+    }
+    +pn{
+      ${ppp \land pnn}（図の赤）は
+    }
+    +math(${
+      \paren{x,y} = \paren{
+        \frac{-z_0\sin P\cos T-\cos P-z_0\sin T}{\sin P\sin T-\cos T},
+        \frac{-\sin T+\sin P\cos T-z_0\cos P}{\sin P\sin T-\cos T}
+      }
+    });
+    +pn{
+      ${npn \land ppp}（図の紫）は
+    }
+    +math(${
+      \paren{x,y} =\paren{
+        \frac{-\sin P-z_0\sin T-z_0\cos P\cos T}{\cos P\sin T-\cos T},
+        \frac{\sin T-\cos P\cos T+z_0\sin P}{\cos P\sin T-\cos T}}
+    });
+    +pn{
+      ${pnn \land npn}（図のオレンジ）は
+    }
+    +math(${
+      \paren{x,y} =\paren{
+        \frac{1-z_0\cos T}{\sin T},
+        \frac{\paren{\cos P-\sin P}\paren{\cos T-z_0}}{\paren{\sin P+\cos P}\sin T}
+      }
+    });
+    +pn{
+      ${ppp \land nnp}（図の緑）は
+    }
+    +math(${
+      \paren{x,y} =\paren{
+        \frac{-1-z_0\cos T}{\sin T},
+        -\frac{\paren{z_0+\cos T}\paren{\cos P+\sin P}}{\sin T\paren{\sin P-\cos P}}
+      }
+    });
+    +pn{
+      ${npn \land nnp}（図の黒）は
+    }
+    +math(${
+      \paren{x,y} =\paren{
+        -\frac{\paren{\cos P+z_0\sin P\cos T-z_0\sin T}}{\cos T+\sin P\sin T},
+        \frac{\cos T\sin P+\sin T-z_0\cos P}{\cos T+\sin P\sin T}
+      }
+    });
+    +pn{
+      ${pnn \land nnp}（図の青）は
+    }
+    +math(${
+      \paren{x,y} =\paren{-\frac{z_0\cos P\cos T+\sin P-z_0\sin T}{\cos T+\cos P\sin T},\frac{-\cos P\cos T-\sin T+z\sin P}{\cos T+\cos P\sin T}}
+    });
+    +p{
+      \figure ?:(`fig:vertices`){${T=0.423, P=0.257, z_0=0.22} https://www.desmos.com/calculator/7hnbfebsp4}<
+        +image-frame{\insert-image(10cm)(`six_vertices1.jpg`);}
+      >
+    }
+    +pn{
+      となる。
+    }
+  >
+  +section{条件分岐}<
+    +pn{
+      先ほどの雑な計算は全て0除算のリスクを孕んでいる。とはいえ実際のところこれは当たり前であり、むしろないとおかしい。というのも、
+      ${ppp, pnn, npn, nnp}それぞれの条件は「正四面体を構成する面上にあるかどうか」なので、
+      たとえば${ppp \land pnn}（図の赤）が${0}除算を起こす条件というのは「『${ppp}かつ${pnn}』、
+      つまり『${\paren{X,Y,Z} = \paren{-1, -1, 1}}と ${\paren{X,Y,Z} = \paren{-1,1, -1}}を結ぶ直線』が切断平面と平行であるとき」のはずである。
+      そのような状況は存在するはずであり、したがって0除算リスクも存在しなければならない。
+    }
+    +pn{
+      せっかくなので代数的にも確認しよう。赤の0除算条件は${\sin P\sin T = \cos T}であり、
+      これは法線ベクトルが${XYZ}座標系で${\paren{\pm \sqrt{1-2a^2}, a, a}}という形であることを意味する。
+      『${\paren{X,Y,Z} = \paren{-1, -1, 1}}と ${\paren{X,Y,Z} = \paren{-1,1, -1}}を結ぶ直線』の方向ベクトルの一つは${\paren{X,Y,Z} = \paren{0, -2, 2}}であって、
+      これは切断平面の法線ベクトルと明らかに直交する。
+    }
+    +pn{
+      とまあ0除算条件という等式条件は幾何学的考察が簡単なのでよいが、問題は不等式条件である。
+      これはつらいので、少しでも条件を削るべく対称性を用いる。具体的には、${z_0 \ge 0}として、球面の8分の1、
+      ${0 \le T \le \pi, 0 \le P \le \frac{\pi}{4}}で片方の正四面体だけを考える。これが解ければ球面の16分の1、
+      ${0 \le T \le \frac{\pi}{2}, 0 \le P \le \frac{\pi}{4}}での星型八面体と平面との交わりを求めることができる。
+    }
+    +pn{
+      試しに${P=0.2}で相図を書いてみる。そこから相図を予想する。
+      とりあえず
+      「赤紫${\Leftrightarrow}橙」「紫緑${\Leftrightarrow}黒」「緑青${\Leftrightarrow}赤」
+      「青橙${\Leftrightarrow}黒」「青黒${\Leftrightarrow}橙」「赤青${\Leftrightarrow}緑」の6本の境界はありそう。
+    }
+
+    +p{
+      \figure ?:(`fig:phase`){${P=0.2} における相図（実測）}<
+        +image-frame{\insert-image(10cm)(`phase_diagram.jpg`);}
+      >
+    }
+
+    +p{
+      \figure ?:(`fig:phase`){${P=0.2} における相図（予想）。緑青橙紫と∅との境界は線ではなく点かも。}<
+        +image-frame{\insert-image(10cm)(`phase_diagram_guess.jpg`);}
+      >
+    }
+
+    +pn{
+      まず「赤紫${\Leftrightarrow}橙」。これは${X+Y+Z\ge -1}を橙が満たしているかどうかによる分岐であり、条件は ${
+        1+\frac{2\paren{z_0-\cos T}}{\paren{\sin P+\cos P}\sin T} \ge -1
+      }である。この分岐は${
+        0 \le P \le \frac{\pi}{4}
+      } の条件のもとで常に所望の範囲を二分し、その境界は${\paren{z, T} = \paren{1, 0}} と ${
+        \paren{z, T} = \paren{0, \app{\cot^{-1}}{\sin P + \cos P}} 
+      } を通過する曲線である。
+    }
+
+    
+    +pn{
+      次に「紫緑${\Leftrightarrow}黒」。これは${X+Y+Z\ge -1}を黒が満たしているかどうかによる分岐であり、条件は ${
+        1+\frac{2\paren{z_0-\sin T\cos P}}{\cos T+\sin P\sin T} \ge -1
+      } である。
+    }
+ +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    }+pn{
+      a
+    }
+    
+
+ +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    }+pn{
+      a
+    }
+    +pn{
+      \figure ?:(`fig:boundary1`){赤紫${\Leftrightarrow}橙}<
+        +image-frame{\insert-image(10cm)(`boundary1.jpg`);}
+      >
+    }
+    +pn{
+      \figure ?:(`fig:boundary2`){紫緑${\Leftrightarrow}黒}<
+        +image-frame{\insert-image(10cm)(`boundary2.jpg`);}
+      >
+    }
+ +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    }+pn{
+      a
+    }
+ +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    }
+    
+  >
+>
