@@ -264,16 +264,24 @@ document (|
 
     
     +pn{
-      次に「紫緑${\Leftrightarrow}黒」。これは${X+Y+Z\ge -1}を黒が満たしているかどうかによる分岐であり、条件は ${
+      次に「紫緑${\Leftrightarrow}黒」と「青橙${\Leftrightarrow}黒」。これはそれぞれ
+      ${X+Y+Z\ge -1}と${X-Y-Z\ge -1}をを黒が満たしているかどうかによる分岐であり、条件は ${
         1+\frac{2\paren{z_0-\sin T\cos P}}{\cos T+\sin P\sin T} \ge -1
+      } かつ ${
+        1-\frac{2\paren{z_0-\sin T\cos P}}{\cos T+\sin P\sin T} \ge -1
       } である。
     }
- +pn{
-      a
-    } +pn{
-      a
-    } +pn{
-      a
+
+    +pn{
+      一見${\cos T+\sin P\sin T}の符号が途中で変わるために${T = \app{\cot^{-1}}{-\sin P}}あたりで面倒に見え、
+      実際片方の条件のみではそうなるが、
+      図から分かるように2つの条件を合わせればこの境界は実際には効いてこない。
+    } 
+    
+    +pn{
+      次。「緑青${\Leftrightarrow}赤」。これは${-X-Y+Z\ge -1}を赤が満たしているかどうかによる分岐であり、条件は ${
+        1+\frac{-2\paren{z_0+\cos P\sin T}}{\sin P\sin T-\cos T} \ge -1
+      } である。だが、この条件で書くと0除算条件よりやっぱり横線が入って面倒なので、${-X+Y-Z\ge -1}を赤が満たしているかどうかの分岐も入れると、
     } +pn{
       a
     } +pn{
@@ -317,13 +325,13 @@ document (|
       a
     }
     +pn{
-      \figure ?:(`fig:boundary1`){赤紫${\Leftrightarrow}橙}<
+      \figure ?:(`fig:boundary1`){赤紫${\Leftrightarrow}橙（図の橙）}<
         +image-frame{\insert-image(10cm)(`boundary1.jpg`);}
       >
     }
     +pn{
-      \figure ?:(`fig:boundary2`){紫緑${\Leftrightarrow}黒}<
-        +image-frame{\insert-image(10cm)(`boundary2.jpg`);}
+      \figure ?:(`fig:boundary3`){紫緑${\Leftrightarrow}黒、青橙${\Leftrightarrow}黒（図の黒）}<
+        +image-frame{\insert-image(10cm)(`boundary3.jpg`);}
       >
     }
  +pn{
@@ -334,21 +342,38 @@ document (|
       a
     } +pn{
       a
-    } +pn{
+    } 
+    +pn{
       a
     } +pn{
       a
     } +pn{
       a
-    } +pn{
-      a
-    } +pn{
-      a
-    } +pn{
-      a
-    }+pn{
+    } 
+
+    +pn{
       a
     }
+
+    +pn{
+      a
+    } +pn{
+      a
+    }
+    
+    +pn{
+      \figure ?:(`fig:boundary2`){紫緑${\Leftrightarrow}黒のみ}<
+        +image-frame{\insert-image(10cm)(`boundary2.jpg`);}
+      >
+    }
+
+     +pn{
+      a
+    }
+    
+    
+    
+    
  +pn{
       a
     } +pn{
