@@ -281,7 +281,14 @@ document (|
     +pn{
       次。「緑青${\Leftrightarrow}赤」。これは${-X-Y+Z\ge -1}を赤が満たしているかどうかによる分岐であり、条件は ${
         1+\frac{-2\paren{z_0+\cos P\sin T}}{\sin P\sin T-\cos T} \ge -1
-      } である。だが、この条件で書くと0除算条件よりやっぱり横線が入って面倒なので、${-X+Y-Z\ge -1}を赤が満たしているかどうかの分岐も入れると、
+      } である。だが、この条件で書くと0除算条件よりやっぱり横線が入って面倒なので、${-X+Y-Z\ge -1}を赤が満たしているかどうかの分岐も入れてみる。
+      すると追加で ${
+        1 + \frac{2\paren{
+          z + \cos P \sin T
+        }}{
+          \sin P\sin T-\cos T
+        } \ge -1
+      } を要求することとなり、かつこの境界はさっき橙でやったやつと一致してくれる。
     } +pn{
       a
     } +pn{
@@ -343,13 +350,10 @@ document (|
     } +pn{
       a
     } 
+    
     +pn{
       a
-    } +pn{
-      a
-    } +pn{
-      a
-    } 
+    }
 
     +pn{
       a
@@ -357,7 +361,13 @@ document (|
 
     +pn{
       a
-    } +pn{
+    }
+
+    +pn{
+      a
+    } 
+
+    +pn{
       a
     }
     
@@ -366,15 +376,76 @@ document (|
         +image-frame{\insert-image(10cm)(`boundary2.jpg`);}
       >
     }
+    +pn{
+      \figure ?:(`fig:boundary4`){緑青${\Leftrightarrow}赤と追加の【橙紫${\Leftrightarrow}赤】}<
+        +image-frame{\insert-image(10cm)(`boundary4.jpg`);}
+      >
+    }
 
-     +pn{
+    +pn{
+      \figure ?:(`fig:phase_diagram2`){最終的な相図}<
+        +image-frame{\insert-image(10cm)(`phase_diagram2.jpg`);}
+      >
+    }
+
+     
+    
+      
+
+    
+
+    +pn{
+      a
+    } +pn{
       a
     }
     
     
-    
-    
  +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    }
+
+    +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    } +pn{
+      a
+    }
+
+    +pn{
       a
     } +pn{
       a
