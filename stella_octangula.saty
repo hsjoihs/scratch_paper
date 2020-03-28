@@ -257,8 +257,8 @@ document (|
         1+\frac{2\paren{z_0-\cos T}}{\paren{\sin P+\cos P}\sin T} \ge -1
       }である。この分岐は${
         0 \le P \le \frac{\pi}{4}
-      } の条件のもとで常に所望の範囲を二分し、その境界は${\paren{z, T} = \paren{1, 0}} と ${
-        \paren{z, T} = \paren{0, \app{\cot^{-1}}{\sin P + \cos P}} 
+      } の条件のもとで常に所望の範囲を二分し、その境界は${\paren{z_0, T} = \paren{1, 0}} と ${
+        \paren{z_0, T} = \paren{0, \app{\cot^{-1}}{\sin P + \cos P}} 
       } を通過する曲線である。
     }
 
@@ -284,22 +284,38 @@ document (|
       } である。だが、この条件で書くと0除算条件よりやっぱり横線が入って面倒なので、${-X+Y-Z\ge -1}を赤が満たしているかどうかの分岐も入れてみる。
       すると追加で ${
         1 + \frac{2\paren{
-          z + \cos P \sin T
+          z_0 + \cos P \sin T
         }}{
           \sin P\sin T-\cos T
         } \ge -1
       } を要求することとなり、かつこの境界はさっき橙でやったやつと一致してくれる。
-    } +pn{
-      a
-    } +pn{
-      a
-    } +pn{
-      a
-    } +pn{
-      a
-    } +pn{
-      a
-    } +pn{
+    } 
+    
+    +pn{
+      ということで、相図の境界を定めるのは4本の正弦波
+    } 
+    +math(${
+      z_0 = \cos T\pm\paren{\sin P+\cos P}\sin T
+    });
+    +math(${
+      z_0 = -\cos T\pm\paren{\sin P-\cos P}\sin T
+    }); 
+    +pn{
+      であることがわかった。答えだけ見るとかなり簡単だな。いい感じの幾何的考察でサクッと出せそう。
+    } 
+    
+    
+    +pn{
+      ということで、${z_0 \ge 0} で ${0 \le T \le \pi, 0 \le P \le \frac{\pi}{4}}において相は7つ。
+    } 
+
+    +pn{
+      \figure ?:(`fig:boundary1`){赤紫${\Leftrightarrow}橙（図の橙）}<
+        +image-frame{\insert-image(10cm)(`boundary1.jpg`);}
+      >
+    }
+    
+    +pn{
       a
     } +pn{
       a
@@ -331,11 +347,7 @@ document (|
     }+pn{
       a
     }
-    +pn{
-      \figure ?:(`fig:boundary1`){赤紫${\Leftrightarrow}橙（図の橙）}<
-        +image-frame{\insert-image(10cm)(`boundary1.jpg`);}
-      >
-    }
+    
     +pn{
       \figure ?:(`fig:boundary3`){紫緑${\Leftrightarrow}黒、青橙${\Leftrightarrow}黒（図の黒）}<
         +image-frame{\insert-image(10cm)(`boundary3.jpg`);}
@@ -381,6 +393,86 @@ document (|
         +image-frame{\insert-image(10cm)(`boundary4.jpg`);}
       >
     }
+     +pn{
+      a
+    } 
+
+    +pn{
+      a
+    }
+     +pn{
+      a
+    } 
+
+    +pn{
+      a
+    }
+     +pn{
+      a
+    } 
+
+    +pn{
+      a
+    }
+     +pn{
+      a
+    } 
+
+    +pn{
+      a
+    }
+     +pn{
+      a
+    } 
+
+    +pn{
+      a
+    }
+     +pn{
+      a
+    } 
+
+    +pn{
+      a
+    }
+     +pn{
+      a
+    } 
+
+    +pn{
+      a
+    }
+     +pn{
+      a
+    } 
+
+    +pn{
+      a
+    }
+     +pn{
+      a
+    } 
+
+    +pn{
+      a
+    }
+     +pn{
+      a
+    } 
+
+    +pn{
+      a
+    }
+     +pn{
+      a
+    } 
+
+    +pn{
+      a
+    }
+     
+
+    
 
     +pn{
       \figure ?:(`fig:phase_diagram2`){最終的な相図}<
